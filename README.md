@@ -21,5 +21,7 @@
 
 ### [BC Oracle Consulting](http://www.dba-oracle.com/)
 
-![screen-gif](https://user-images.githubusercontent.com/61971594/159985408-b2fe02ab-5770-4c73-8837-4d9c7e177ad4.png)
-<a href="https://giphy.com/gifs/funny-anime-girl-8MFkW6mDff37G">via GIPHY</a>
+‎
+
+![giphy](https://user-images.githubusercontent.com/61971594/159985951-d604b27f-79b2-40d2-bda2-f39d044a7b1c.gif)
+<a href="https://giphy.com/gifs/funny-anime-girl-8MFkW6mDff37G"><h6>via GIPHY</h6></a>
