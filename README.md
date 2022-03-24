@@ -6,5 +6,5 @@
 ###### (On which we will base the table creation)
 <details>
   <summary><h3>EER diagram<h3></summary>
-  ![image](https://user-images.githubusercontent.com/61971594/159980675-36aa52aa-6865-4eae-80ec-1a59bf8a564c.png)
+  <img src='https://user-images.githubusercontent.com/61971594/159980675-36aa52aa-6865-4eae-80ec-1a59bf8a564c.png'>
 </details>
