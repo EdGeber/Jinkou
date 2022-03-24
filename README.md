@@ -21,6 +21,8 @@
 
 ### [BC Oracle Consulting](http://www.dba-oracle.com/)
 
+### [Instructions on using SQL developer](https://helpdesk.cin.ufpe.br/servicos/oracle-sql)
+
 ‎
 
 ![giphy](https://user-images.githubusercontent.com/61971594/159985951-d604b27f-79b2-40d2-bda2-f39d044a7b1c.gif)
