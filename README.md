@@ -6,7 +6,7 @@
 ###### (On which we will base the table creation)
 <details>
   <summary><h3>EER diagram</h3></summary>
-  <img src='https://user-images.githubusercontent.com/61971594/159980675-36aa52aa-6865-4eae-80ec-1a59bf8a564c.png'>
+  <img src='https://user-images.githubusercontent.com/61971951/160468806-72014cf8-6ea1-4bdd-a5ac-9cc1157d8429.png'>
 </details>
 
 ### [Slides on SQL](https://drive.google.com/file/d/1gUsiI8yItuXvU_DPjSnu0OdjtrAWwDAX/view)
