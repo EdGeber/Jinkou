@@ -24,6 +24,7 @@
 ### [Instructions on using Oracle's SQL Developer](https://helpdesk.cin.ufpe.br/servicos/oracle-sql)
 
 ‎
-
-![giphy](https://user-images.githubusercontent.com/61971594/159985951-d604b27f-79b2-40d2-bda2-f39d044a7b1c.gif)
-<a href="https://giphy.com/gifs/funny-anime-girl-8MFkW6mDff37G"><h6>via GIPHY</h6></a>
+<div align="center">
+  <a href="https://giphy.com/gifs/funny-anime-girl-8MFkW6mDff37G"><h6>via GIPHY</h6></a>
+  <img src="https://user-images.githubusercontent.com/61971594/159985951-d604b27f-79b2-40d2-bda2-f39d044a7b1c.gif">
+</div>
