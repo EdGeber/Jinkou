@@ -1,4 +1,4 @@
-create table Oferece_auxílio(
+create table Oferece_auxilio(
     cpf varchar(100),
     numero_agencia varchar(100),
     numero_conta varchar(100),
