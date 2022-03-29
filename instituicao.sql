@@ -1,6 +1,6 @@
 create table Instituicao(  
   cnpj varchar(14),  
-  nome varchar2(100) not null,  
+  nome varchar(100) not null,  
   data_abertura date, 
   constraint pk_cnpj primary key(cnpj), 
   constraint ck_cnpj  check(length(cnpj) = '14')
