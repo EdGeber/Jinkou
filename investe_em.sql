@@ -8,5 +8,5 @@ CONSTRAINT Investe_em_fkey_movimenta FOREIGN KEY (numero_agencia,numero_conta,cp
 REFERENCES Movimenta(numero_agencia,numero_conta,cpf),
 
 CONSTRAINT Investe_em_fkey_ativo FOREIGN KEY (nome_ativo)
-REFERENCES Ativo_financeiro(nome_ativo)
+REFERENCES Ativo_financeiro(nome)
 );
