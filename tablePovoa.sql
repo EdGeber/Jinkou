@@ -14,12 +14,12 @@ INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('ETF', 'Renda variável');
 
 CREATE SEQUENCE auxilio_seq INCREMENT BY 1 START WITH 1
 
-INSERT INTO Auxilio VALUES (03541,'Moradia Estudantil');
-INSERT INTO Auxilio VALUES (02653,'Auxílio-Creche');
-INSERT INTO Auxilio VALUES (54513,'Bolsa Família');
-INSERT INTO Auxilio VALUES (45223,'Auxílio Emergencial');
-INSERT INTO Auxilio VALUES (77368,'Auxílio Internet');
-INSERT INTO Auxilio VALUES (00646,'Vale Transporte');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Moradia Estudantil');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Auxílio-Creche');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Bolsa Família');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Auxílio Emergencial');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Auxílio Internet');
+INSERT INTO Auxilio VALUES (auxilio_seq.nextval,'Vale Transporte');
 
 /* Povoamento: Instituição*/
 -- mudar
