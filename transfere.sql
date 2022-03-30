@@ -5,7 +5,7 @@ numero_agencia VARCHAR(100),
 numero_conta VARCHAR(100), 
 cpf VARCHAR(100),
 
-CONSTRAINT Transfere_pkey PRIMARY KEY (numero_agencia,numero_conta,cpf),
+CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario),
 
 CONSTRAINT Transfere_fkey_auditor FOREIGN KEY (cpf)
 REFERENCES Auditor(cpf),
