@@ -119,8 +119,8 @@ CREATE TABLE Conta_Corrente(
     credito_disponivel NUMBER(10,2) NOT NULL,
     limite_credito NUMBER(10,2) NOT NULL,
     taxa NUMBER(5,2),
-    positivo number(1) check(positivo == 1 or positivo == 0),
-    
+    positivo number(1) check((positivo = 1) or (positivo = 0)),
+
     CONSTRAINT Conta_Corrente_fkey
     FOREIGN KEY(numero_agencia,numero_conta) 
     REFERENCES Conta(numero_agencia,numero_conta),
@@ -140,7 +140,7 @@ CREATE TABLE Conta_Poupanca(
     FOREIGN KEY(numero_agencia,numero_conta) 
     REFERENCES Conta(numero_agencia,numero_conta),
 
-    CONSTRAINT Conta_Poupanca_pkey PRIMARY KEY(numero_agencia,numero_conta),
+    CONSTRAINT Conta_Poupanca_pkey PRIMARY KEY(numero_agencia,numero_conta)
 );
 
 --Table: Movimenta
@@ -172,7 +172,7 @@ CREATE TABLE Dados_transferencia(
     numero_conta_orig VARCHAR(100),
     cpf_orig VARCHAR(100),
 
-    CONSTRAINT Dados_transfer_pkey PRIMARY KEY (data,horario),
+    CONSTRAINT Dados_transfer_pkey PRIMARY KEY (data,horario,numero_agencia_orig,numero_conta_orig),
 
     CONSTRAINT Dados_transfer_fkey_cliente FOREIGN KEY (cpf_orig)
     REFERENCES Cliente(cpf),
@@ -191,7 +191,7 @@ CREATE TABLE Transfere(
     numero_conta_dest VARCHAR(100),
     cpf_auditor VARCHAR(100),
 
-    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario),
+    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario,numero_agencia_orig,numero_conta_orig,numero_agencia_dest,numero_conta_dest),
 
     CONSTRAINT Transfere_fkey_auditor FOREIGN KEY (cpf_auditor)
     REFERENCES Auditor(cpf),
@@ -203,9 +203,7 @@ CREATE TABLE Transfere(
     REFERENCES Conta(numero_agencia, numero_conta)
 );
 
-
-
---Table: Conta Investe em
+/* --Table: Conta Investe em
 CREATE TABLE Conta_investe_em(
     data_inicio DATE,
     hora_inicio TIMESTAMP,
@@ -218,10 +216,10 @@ CREATE TABLE Conta_investe_em(
     REFERENCES Movimenta(numero_agencia,numero_conta),
 
     CONSTRAINT Conta_investe_em_fkey_ativo FOREIGN KEY (nome_ativo)
-    REFERENCES Ativo_financeiro(nome)
+    REFERENCES Ativo_financeiro(nome),
 
     constraint pk_conta_investe_em primary key(numero_agencia, numero_conta, nome_ativo)
-);
+); */
 
 --table: Investe em
 CREATE TABLE Investe_em(
@@ -246,12 +244,12 @@ create table Oferece_auxilio(
     numero_conta varchar(100),
     cnpj varchar(14),
     cod_aux varchar(5),
-    valor_mensal number(,2)
-    data_início DATE
+    valor_mensal number(*,2),
+    data_início DATE,
     
     constraint fk_movimenta foreign key (cpf, numero_agencia, numero_conta) references Movimenta(cpf, numero_agencia, numero_conta),
     constraint fk_cnpj foreign key (cnpj) references Instituicao(cnpj),
-    constraint fk_codaux foreign key (cod_aux) references Auxilio(cod_aux),
+    constraint fk_codaux foreign key (cod_aux) references Auxilio(cod_auxilio),
     
     constraint pk_ofereceAuxilio primary key (cpf, numero_agencia, numero_conta, cnpj, cod_aux)
 );
