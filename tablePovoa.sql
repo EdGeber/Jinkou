@@ -152,41 +152,41 @@ insert into Movimenta(numero_agencia, numero_conta, cpf) values ('932', '0893756
 
 -- Povoamento: Transfere
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('07/02/2020', 'DD/MM/YYYY'), TO_TIMESTAMP('10:13:18', 'HH:MI:SS'), 57.00, 'Aceito', 'Pix', '001', '891756213', '163', '123432189', null);
+    values (TO_DATE('07/02/2020', 'DD/MM/YYYY'), TO_TIMESTAMP('10:13:18', 'HH24:MI:SS'), 57.00, 'Aceito', 'Pix', '001', '891756213', '163', '123432189', null);
 
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('02/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('23:21:19', 'HH:MI:SS'), 300.00, 'Aceito', 'Pix', '001', '891756213', '932', '089375612', null);
+    values (TO_DATE('02/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('23:21:19', 'HH24:MI:SS'), 300.00, 'Aceito', 'Pix', '001', '891756213', '932', '089375612', null);
 
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('23/02/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('12:45:18', 'HH:MI:SS'), 30.00, 'Aceito', 'TED', '129', '891756213', '854', '837917841', null);
+    values (TO_DATE('23/02/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('12:45:18', 'HH24:MI:SS'), 30.00, 'Aceito', 'TED', '129', '891756213', '854', '837917841', null);
 
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('03/02/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:30:00', 'HH:MI:SS'), 10000.00, 'Não concluída', 'TED', '367', '891756213', '854', '837917841', '594');
+    values (TO_DATE('03/02/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:30:00', 'HH24:MI:SS'), 10000.00, 'Não concluída', 'TED', '367', '891756213', '854', '837917841', '594');
 
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('25/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('16:57:25', 'HH:MI:SS'), 70.00, 'Não concluída', 'Pix', '163', '123432189', '932', '089375612', null);
+    values (TO_DATE('25/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('16:57:25', 'HH24:MI:SS'), 70.00, 'Não concluída', 'Pix', '163', '123432189', '932', '089375612', null);
 
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
-    values (TO_DATE('05/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH:MI:SS'), 57.00, 'Aceito', 'Pix', '932', '089375612', '163', '123432189', null);
+    values (TO_DATE('05/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'Aceito', 'Pix', '932', '089375612', '163', '123432189', null);
 
 -- Povoamento: Conta Investe em
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta) 
-    value (TO_DATE('05/10/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH:MI:SS'), 57.00, 'NFT SCAM', '367', '891756213');
+    values (TO_DATE('05/10/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'NFT SCAM', '367', '891756213');
 
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    value (TO_DATE('31/01/2001', 'DD/MM/YYYY'), TO_TIMESTAMP('10:21:03', 'HH:MI:SS'), 102.00, 'BIT CONNECT', '163', '123432189');
+    values (TO_DATE('31/01/2001', 'DD/MM/YYYY'), TO_TIMESTAMP('10:21:03', 'HH24:MI:SS'), 102.00, 'BIT CONNECT', '163', '123432189');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    value (TO_DATE('23/02/2002', 'DD/MM/YYYY'), TO_TIMESTAMP('11:40:23', 'HH:MI:SS'), 521.00, 'SilkRoad', '163', '123432189');
+    values (TO_DATE('23/02/2002', 'DD/MM/YYYY'), TO_TIMESTAMP('11:40:23', 'HH24:MI:SS'), 521.00, 'SilkRoad', '163', '123432189');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    value (TO_DATE('15/05/2012', 'DD/MM/YYYY'), TO_TIMESTAMP('12:23:52', 'HH:MI:SS'), 532.30, 'Gamespot', '367', '891756213');
+    values (TO_DATE('15/05/2012', 'DD/MM/YYYY'), TO_TIMESTAMP('12:23:52', 'HH24:MI:SS'), 532.30, 'Gamespot', '367', '891756213');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    value (TO_DATE('18/03/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:32:59', 'HH:MI:SS'), 123.30, 'MacroHard', '932', '089375612');
+    values (TO_DATE('18/03/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:32:59', 'HH24:MI:SS'), 123.30, 'MacroHard', '932', '089375612');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    value (TO_DATE('01/12/2000', 'DD/MM/YYYY'), TO_TIMESTAMP('15:03:00', 'HH:MI:SS'), 72.50, 'IboAbelha', '367', '891756213');
+    values (TO_DATE('01/12/2000', 'DD/MM/YYYY'), TO_TIMESTAMP('15:03:00', 'HH24:MI:SS'), 72.50, 'IboAbelha', '367', '891756213');
  
 -- Povoamento: Investe em
 insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)

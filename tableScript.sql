@@ -48,7 +48,7 @@ create table Pessoa(
     cpf varchar(100) not null, 
     primeiro_nome varchar(100) not null, 
     sobrenomes_centrais varchar(100), 
-    ultimos_nomes varchar(100), 
+    ultimo_nome varchar(100), 
     endereco_numero int check(endereco_numero >= 0), 
     endereco_complemento varchar(100), 
     data_nasc date, 
