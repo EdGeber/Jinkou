@@ -5,7 +5,7 @@
 -- Table: Ativo Financeiro
 CREATE TABLE Ativo_financeiro (
     nome VARCHAR(100), 
-    nipo VARCHAR(100), 
+    tipo VARCHAR(100), 
     
     CONSTRAINT Ativo_financeiro_pkey PRIMARY KEY (nome)
 );
@@ -119,7 +119,7 @@ CREATE TABLE Conta_Corrente(
     credito_disponivel NUMBER(10,2) NOT NULL,
     limite_credito NUMBER(10,2) NOT NULL,
     taxa NUMBER(5,2),
-    positivo number(1) check((positivo = 1) or (positivo = 0)),
+    positivo number(1) check((positivo = 1) or (positivo = 0)), -- Indica se o saldo da conta é positivo ou negativo
 
     CONSTRAINT Conta_Corrente_fkey
     FOREIGN KEY(numero_agencia,numero_conta) 
@@ -160,38 +160,20 @@ CREATE TABLE Movimenta(
     REFERENCES Conta(numero_agencia, numero_conta)
 );
 
-
---Table: Dados transferencia
-CREATE TABLE Dados_transferencia(
-    data DATE NOT NULL,
-    horario TIMESTAMP NOT NULL,
-    valor VARCHAR(100),
-    status VARCHAR(100),
-    motivo VARCHAR(100),
-    numero_agencia_orig VARCHAR(100),
-    numero_conta_orig VARCHAR(100),
-    cpf_orig VARCHAR(100),
-
-    CONSTRAINT Dados_transfer_pkey PRIMARY KEY (data,horario,numero_agencia_orig,numero_conta_orig,cpf_orig),
-
-    CONSTRAINT Dados_transfer_fkey_cliente FOREIGN KEY (cpf_orig)
-    REFERENCES Cliente(cpf),
-
-    CONSTRAINT Dados_transfer_fkey_origem FOREIGN KEY (numero_agencia_orig,numero_conta_orig)
-    REFERENCES Conta(numero_agencia, numero_conta)
-);
-
 --table: Transfere
 CREATE TABLE Transfere(
     data DATE NOT NULL,
     horario TIMESTAMP NOT NULL,
-    numero_agencia_orig VARCHAR(100),
-    numero_conta_orig VARCHAR(100),
-    numero_agencia_dest VARCHAR(100),
-    numero_conta_dest VARCHAR(100),
+    valor number NOT NULL,
+    status VARCHAR(100) NOT NULL,
+    motivo varchar(100) NOT NULL,
+    numero_agencia_orig VARCHAR(100) NOT NULL,
+    numero_conta_orig VARCHAR(100) NOT NULL,
+    numero_agencia_dest VARCHAR(100) NOT NULL,
+    numero_conta_dest VARCHAR(100) NOT NULL,
     cpf_auditor VARCHAR(100),
 
-    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario,numero_agencia_orig,numero_conta_orig,numero_agencia_dest,numero_conta_dest,cpf_auditor),
+    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario, numero_agencia_orig, numero_conta_orig),
 
     CONSTRAINT Transfere_fkey_auditor FOREIGN KEY (cpf_auditor)
     REFERENCES Auditor(cpf),
@@ -200,14 +182,17 @@ CREATE TABLE Transfere(
     REFERENCES Conta(numero_agencia, numero_conta),
 
     CONSTRAINT Transfere_fkey_conta_dest FOREIGN KEY (numero_agencia_dest, numero_conta_dest)
-    REFERENCES Conta(numero_agencia, numero_conta)
+    REFERENCES Conta(numero_agencia, numero_conta),
+
+    CONSTRAINT Audita_5k_check CHECK ((valor >= 5000.00 AND cpf_auditor != NULL) OR (valor < 5000.00 AND cpf_auditor = NULL))
 );
+
 
 --Table: Conta Investe em
 CREATE TABLE Conta_investe_em(
     data_inicio DATE NOT NULL,
     hora_inicio TIMESTAMP NOT NULL,
-    valor_mensal_investido NUMBER(7,2),
+    valor_mensal_investido NUMBER(7,2) NOT NULL,
     nome_ativo VARCHAR(100),
     numero_agencia VARCHAR(100),
     numero_conta VARCHAR(100),
@@ -259,12 +244,12 @@ create table Oferece_auxilio(
 
 --table: Dependente
 create table Dependente(
-    cpf_parente varchar(100),
-    primeiro_nome varchar(100),
+    cpf_parente varchar(100) not null,
+    primeiro_nome varchar(100) not null,
     sobrenomes_centrais varchar(100),
     ultimos_nomes varchar(100),
-    parentesco varchar(100),
-    data_nasc DATE  NOT NULL,,
+    parentesco varchar(100) not null,
+    data_nasc DATE NOT NULL,
     
     constraint fk_pessoa foreign key (cpf_parente) references Pessoa(cpf),
     
