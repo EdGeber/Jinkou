@@ -257,3 +257,16 @@ create table Oferece_auxilio(
     constraint pk_ofereceAuxilio primary key (cpf, numero_agencia, numero_conta, cnpj, cod_aux)
 );
 
+--table: Dependente
+create table Dependente(
+    cpf_parente varchar(100),
+    primeiro_nome varchar(100),
+    sobrenomes_centrais varchar(100),
+    ultimos_nomes varchar(100),
+    parentesco varchar(100),
+    data_nasc DATE,
+    
+    constraint fk_pessoa foreign key (cpf_parente) references Pessoa(cpf),
+    
+    constraint pk_Dependente primary key (cpf_parente,primeiro_nome,sobrenomes_centrais,ultimos_nomes)
+);
