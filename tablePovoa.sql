@@ -5,10 +5,6 @@ INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('CDB', 'Renda fixa');
 INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('LCI', 'Renda fixa');
 INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('LCA', 'Renda fixa');
 INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('Ações', 'Renda variável');
-INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('Fundos de investimento', 'Renda variável');
-INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('Fundos imobiliários', 'Renda variável');
-INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('ETF', 'Renda variável');
-
 
 -- Povoamento: Auxilio
 CREATE SEQUENCE auxilio_seq INCREMENT BY 1 START WITH 1;
@@ -171,22 +167,22 @@ insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig,
 
 -- Povoamento: Conta Investe em
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta) 
-    values (TO_DATE('05/10/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'NFT SCAM', '367', '891756213');
+    values (TO_DATE('05/10/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'Tesouro Selic','001', '891756213');
 
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    values (TO_DATE('31/01/2001', 'DD/MM/YYYY'), TO_TIMESTAMP('10:21:03', 'HH24:MI:SS'), 102.00, 'BIT CONNECT', '163', '123432189');
+    values (TO_DATE('31/01/2001', 'DD/MM/YYYY'), TO_TIMESTAMP('10:21:03', 'HH24:MI:SS'), 102.00, 'Tesouro Selic','163', '123432189');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    values (TO_DATE('23/02/2002', 'DD/MM/YYYY'), TO_TIMESTAMP('11:40:23', 'HH24:MI:SS'), 521.00, 'SilkRoad', '163', '123432189');
+    values (TO_DATE('23/02/2002', 'DD/MM/YYYY'), TO_TIMESTAMP('11:40:23', 'HH24:MI:SS'), 521.00, 'CDB','001', '891756213');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    values (TO_DATE('15/05/2012', 'DD/MM/YYYY'), TO_TIMESTAMP('12:23:52', 'HH24:MI:SS'), 532.30, 'Gamespot', '367', '891756213');
+    values (TO_DATE('15/05/2012', 'DD/MM/YYYY'), TO_TIMESTAMP('12:23:52', 'HH24:MI:SS'), 532.30, 'Ações','163', '123432189');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    values (TO_DATE('18/03/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:32:59', 'HH24:MI:SS'), 123.30, 'MacroHard', '932', '089375612');
+    values (TO_DATE('18/03/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('14:32:59', 'HH24:MI:SS'), 123.30, 'LCI','163', '123432189');
  
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta)
-    values (TO_DATE('01/12/2000', 'DD/MM/YYYY'), TO_TIMESTAMP('15:03:00', 'HH24:MI:SS'), 72.50, 'IboAbelha', '367', '891756213');
+    values (TO_DATE('01/12/2000', 'DD/MM/YYYY'), TO_TIMESTAMP('15:03:00', 'HH24:MI:SS'), 72.50, 'LCA','163', '123432189');
  
 -- Povoamento: Investe em
 insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
@@ -207,14 +203,6 @@ insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
 insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
     values ('LCA','163', '123432189','010');
 
-insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
-    values ('Fundos de investimento','001', '891756213', '462');
-
-insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
-    values ('Fundos imobiliários', '001', '891756213', '462');
-
-insert into Investe_em(nome_ativo, numero_agencia, numero_conta, cpf)
-    values ('ETF','163', '123432189','010');
 
 -- Povoamento: Oferece auxilio
 insert into Oferece_auxilio(cpf, numero_agencia, numero_conta, cnpj, cod_aux, valor_mensal, data_inicio)

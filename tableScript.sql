@@ -233,7 +233,7 @@ create table Oferece_auxilio(
     cnpj varchar(14),
     cod_aux varchar(5),
     valor_mensal number(*,2),
-    data_início DATE,
+    data_inicio DATE,
     
     constraint fk_movimenta foreign key (cpf, numero_agencia, numero_conta) references Movimenta(cpf, numero_agencia, numero_conta),
     constraint fk_cnpj foreign key (cnpj) references Instituicao(cnpj),
