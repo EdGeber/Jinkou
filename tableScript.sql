@@ -134,7 +134,7 @@ CREATE TABLE Conta_Corrente(
 CREATE TABLE Conta_Poupanca(
     numero_agencia VARCHAR(100),
     numero_conta VARCHAR(100),
-    juros_rend NUMBER(5,2),
+    juros_rend NUMBER(5,4),
 
     CONSTRAINT Conta_Poupanca_fkey
     FOREIGN KEY(numero_agencia,numero_conta) 
@@ -163,8 +163,8 @@ CREATE TABLE Movimenta(
 
 --Table: Dados transferencia
 CREATE TABLE Dados_transferencia(
-    data DATE,
-    horario TIMESTAMP,
+    data DATE NOT NULL,
+    horario TIMESTAMP NOT NULL,
     valor VARCHAR(100),
     status VARCHAR(100),
     motivo VARCHAR(100),
@@ -183,8 +183,8 @@ CREATE TABLE Dados_transferencia(
 
 --table: Transfere
 CREATE TABLE Transfere(
-    data DATE,
-    horario TIMESTAMP,
+    data DATE NOT NULL,
+    horario TIMESTAMP NOT NULL,
     numero_agencia_orig VARCHAR(100),
     numero_conta_orig VARCHAR(100),
     numero_agencia_dest VARCHAR(100),
@@ -205,8 +205,8 @@ CREATE TABLE Transfere(
 
 --Table: Conta Investe em
 CREATE TABLE Conta_investe_em(
-    data_inicio DATE,
-    hora_inicio TIMESTAMP,
+    data_inicio DATE NOT NULL,
+    hora_inicio TIMESTAMP NOT NULL,
     valor_mensal_investido NUMBER(7,2),
     nome_ativo VARCHAR(100),
     numero_agencia VARCHAR(100),
@@ -264,7 +264,7 @@ create table Dependente(
     sobrenomes_centrais varchar(100),
     ultimos_nomes varchar(100),
     parentesco varchar(100),
-    data_nasc DATE,
+    data_nasc DATE  NOT NULL,,
     
     constraint fk_pessoa foreign key (cpf_parente) references Pessoa(cpf),
     
