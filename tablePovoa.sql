@@ -33,7 +33,7 @@ INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('001', 'Algarobas', '
 INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('010', 'Rua Professor Damorim', 'Don Helder', 'Jaboatão dos Guararapes', 'PE');
 INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('100', 'Rua Doutor Damorim', 'Barra de Jangada', 'Jaboatão dos Guararapes', 'PE');
 INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('011', 'Rua PhD Damorim', 'Pina', 'Recife', 'PE');
-INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('100', 'Rua Damorim', 'Cidade Universitária', 'Recife', 'PE');
+INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('110', 'Rua Damorim', 'Cidade Universitária', 'Recife', 'PE');
 INSERT INTO CEP (cep, rua, bairro, cidade, estado) VALUES ('101', 'Rua pasg', 'Saint-Cloud', 'Paris', 'Región Parisiana');
 
 -- Povoamento: Pessoaa
