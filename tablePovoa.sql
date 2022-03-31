@@ -11,7 +11,7 @@ INSERT INTO Ativo_financeiro(Nome, Tipo) VALUES ('ETF', 'Renda variável');
 
 
 -- Povoamento: Auxilio
-CREATE SEQUENCE auxilio_seq INCREMENT BY 1 START WITH 1
+CREATE SEQUENCE auxilio_seq INCREMENT BY 1 START WITH 1;
 
 INSERT INTO Auxilio(cod_auxilio, nome_auxilio) VALUES (auxilio_seq.nextval,'Moradia Estudantil');
 INSERT INTO Auxilio(cod_auxilio, nome_auxilio) VALUES (auxilio_seq.nextval,'Auxílio-Creche');
