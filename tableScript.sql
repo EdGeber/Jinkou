@@ -228,9 +228,12 @@ CREATE TABLE Investe_em(
     numero_conta VARCHAR(100),
     cpf VARCHAR(100),
 
-    CONSTRAINT Investe_em_fkey_movimenta FOREIGN KEY (numero_agencia,numero_conta,cpf)
-    REFERENCES Conta_Corrente(numero_agencia,numero_conta,cpf),
-
+    CONSTRAINT Investe_em_fkey_movimenta FOREIGN KEY (numero_agencia,numero_conta)
+    REFERENCES Conta_Corrente(numero_agencia,numero_conta),
+    
+    CONSTRAINT Investe_em_fkey_cliente FOREIGN KEY (cpf)
+    REFERENCES Cliente(cpf),
+    
     CONSTRAINT Investe_em_fkey_ativo FOREIGN KEY (nome_ativo)
     REFERENCES Ativo_financeiro(nome),
 
