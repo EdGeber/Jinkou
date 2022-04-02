@@ -71,6 +71,7 @@ insert into Cliente(cpf) values ('001');
 insert into Cliente(cpf) values ('010');
 insert into Cliente(cpf) values ('462');
 insert into Cliente(cpf) values ('888');
+insert into Cliente(cpf) values ('534');
 
 -- Povoamento: Auditor
 insert into Auditor(cpf, Tempo_serv) values ('594', 133);
@@ -96,7 +97,10 @@ insert into Ocupacao(cpf_origem, ocupacao) values ('462', 'Professor');
 insert into Ocupacao(cpf_origem, ocupacao) values ('888', 'Engenheiro');
 insert into Ocupacao(cpf_origem, ocupacao) values ('462', 'Dentista');
 
--- Povoamento: Conta
+-- Povoamento: 
+insert into Conta(numero_agencia, numero_conta, data_criacao, nome_banco, saldo_atual)
+    values ('765', '891756213', TO_DATE('27/11/2016', 'DD/MM/YYYY'), 'Banco Inter', 5430.00);
+
 insert into Conta(numero_agencia, numero_conta, data_criacao, nome_banco, saldo_atual)
     values ('001', '891756213', TO_DATE('17/12/2014', 'DD/MM/YYYY'), 'Banco do Brasil', 10000.12);
 
@@ -122,6 +126,8 @@ insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, lim
     values ('163', '123432189', 678.50, 2000.00, 0.2, 1);
 insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
     values ('932', '089375612', 20.00, 5000.00, 0.8, 0);
+insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
+    values ('765', '891756213', 1500.00, 7000.00, 0.6, 1);
 
 -- Povoamento: ContaPoupanca
 insert into Conta_Poupanca(numero_agencia, numero_conta, juros_rend)
@@ -134,6 +140,7 @@ insert into Conta_Poupanca(numero_agencia, numero_conta, juros_rend)
     values ('367', '891756213', 5.322);
 
 -- Povoamento: Movimenta
+insert into Movimenta(numero_agencia, numero_conta, cpf) values ('765', '891756213', '534');
 insert into Movimenta(numero_agencia, numero_conta, cpf) values ('367', '891756213', '001');
 insert into Movimenta(numero_agencia, numero_conta, cpf) values ('854', '837917841', '001');
 insert into Movimenta(numero_agencia, numero_conta, cpf) values ('129', '891756213', '888');
@@ -231,6 +238,12 @@ insert into Oferece_auxilio(cpf, numero_agencia, numero_conta, cnpj, cod_aux, va
 
 
 -- Povoamento: Dependente
+insert into Dependente(cpf_parente, primeiro_nome, sobrenomes_centrais, ultimos_nomes, parentesco, data_nasc)
+    values ('462', 'Flávia', 'Martins', 'Sodré', 'Filha', to_date('05/11/2020','DD/MM/YYYY'));
+
+insert into Dependente (cpf_parente, primeiro_nome, sobrenomes_centrais, ultimos_nomes, parentesco, data_nasc)
+    values ('534', 'Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY'));
+
 insert into Dependente(cpf_parente, primeiro_nome, sobrenomes_centrais, ultimos_nomes, parentesco, data_nasc)
     values ('001', 'Josevan', 'Almir', 'Valerio', 'Pai', to_date('05/04/2002','DD/MM/YYYY'));
 
