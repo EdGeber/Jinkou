@@ -9,6 +9,8 @@
   <img src='https://user-images.githubusercontent.com/61971951/160468806-72014cf8-6ea1-4bdd-a5ac-9cc1157d8429.png'>
 </details>
 
+### [AV4 Checklist](https://www.notion.so/duardo71/AV4-Checklist-cbea239b91744fe9ba713dc553d4c676)
+
 ### [Slides on SQL](https://drive.google.com/file/d/1gUsiI8yItuXvU_DPjSnu0OdjtrAWwDAX/view)
 
 ### [Slides on SQL development environments](https://drive.google.com/file/d/1dEKjR7ktyTids2_hkvZbvkKRJ29EKpUx/view)
