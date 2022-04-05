@@ -1,1 +1,0 @@
-SELECT * FROM CEP WHERE RUA LIKE '%Damorim%'

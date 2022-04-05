@@ -1,1 +1,0 @@
-UPDATE OCUPACAO SET OCUPACAO = 'Desenvolvedora' where CPF_ORIGEM = '001';
