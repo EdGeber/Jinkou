@@ -88,3 +88,23 @@ EXECUTE deleta_telefone('(93) 3828-4531', '001');
 /*19. CREATE OR REPLACE TRIGGER (COMANDO)  */
 
 /*20. CREATE OR REPLACE TRIGGER (LINHA)  */
+--Descrição: não permite que o saldo de uma conta poupança seja negativo mas permite que o saldo de contas correntes o sejam
+CREATE OR REPLACE TRIGGER saldo_poupanca_checker
+BEFORE UPDATE OF saldo_atual ON conta
+FOR EACH ROW
+DECLARE
+    contas_achadas INTEGER;
+BEGIN
+    IF :NEW.saldo_atual < 0 THEN
+        
+        SELECT count(*) INTO contas_achadas FROM conta_poupanca
+        WHERE  numero_agencia = :NEW.numero_agencia
+        AND    numero_conta   = :NEW.numero_conta;
+        
+        IF contas_achadas != 0 THEN
+            RAISE_APPLICATION_ERROR(-20010,
+            'Saldo da conta poupança não pode ser negativo');
+        END IF;
+    END IF;
+END;
+/
