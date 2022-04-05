@@ -109,3 +109,7 @@ AND numero_conta IN (SELECT numero_conta FROM conta_poupanca))) inter
 ON p.cpf = inter.cpf;
 
 /*26. GRANT/REVOKE  */
+
+/*26. GRANT/REVOKE  */
+grant insert, select on Dependente to public;
+revoke insert on Dependente from public;
