@@ -8,7 +8,25 @@ ALTER TABLE TELEFONE DROP (DDD);
 
 /*4. UPDATE  */
 UPDATE OCUPACAO SET OCUPACAO = 'Desenvolvedora' WHERE CPF_ORIGEM = '001';
-/*5. DELETE  */
+/*5. DELETE 
+Descrição: dado um telefone e um cpf, deleta o telefone correspondente da base de dados. */
+CREATE OR REPLACE PROCEDURE deleta_telefone 
+    (telefone_to_delete IN TELEFONE.telefone%TYPE,
+    cpf_pessoa IN TELEFONE.cpf_origem%TYPE) IS
+    
+    telefone_not_found EXCEPTION;
+    BEGIN 
+        DELETE FROM TELEFONE WHERE cpf_origem = cpf_pessoa AND telefone = telefone_to_delete;
+        IF SQL%NOTFOUND THEN
+            RAISE telefone_not_found;
+        END IF;
+        EXCEPTION
+            WHEN telefone_not_found THEN
+            dbms_output.put_line('Telefone não existe na base de dados');
+    END;
+    /
+
+EXECUTE deleta_telefone('(93) 3828-4531', '001');
 
 /*6. SELECT-FROM-WHERE  */
 SELECT BAIRRO, RUA FROM CEP WHERE (CIDADE = 'Recife');

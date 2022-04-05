@@ -61,7 +61,25 @@ EXECUTE pesquisa_telefone_DDD('82');
 
 /*9. CASE WHEN  */
 
-/*15. EXCEPTION WHEN  */
+/*15. EXCEPTION WHEN 
+Descrição: dado um telefone e um cpf, tenta remover a tupla da tabela telefone, mas levanta uma exceção caso a tupla não exista. */
+CREATE OR REPLACE PROCEDURE deleta_telefone 
+    (telefone_to_delete IN TELEFONE.telefone%TYPE,
+    cpf_pessoa IN TELEFONE.cpf_origem%TYPE) IS
+    
+    telefone_not_found EXCEPTION;
+    BEGIN 
+        DELETE FROM TELEFONE WHERE cpf_origem = cpf_pessoa AND telefone = telefone_to_delete;
+        IF SQL%NOTFOUND THEN
+            RAISE telefone_not_found;
+        END IF;
+        EXCEPTION
+            WHEN telefone_not_found THEN
+            dbms_output.put_line('Telefone não existe na base de dados');
+    END;
+    /
+
+EXECUTE deleta_telefone('(93) 3828-4531', '001');
 
 /*17. CREATE OR REPLACE PACKAGE  */
 
