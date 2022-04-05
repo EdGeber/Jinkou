@@ -1,4 +1,5 @@
-/*1, 2, 5, 11, 12, 13. USO DE RECORD, USO DE ESTRUTURA DE DADOS DO TIPO TABLE, CREATE FUNCTION, WHILE LOOP, FOR IN LOOP, SELECT INTO  */
+/*1, 2, 5, 11, 12, 13. USO DE RECORD, USO DE ESTRUTURA DE DADOS DO TIPO TABLE, CREATE FUNCTION, WHILE LOOP, FOR IN LOOP, SELECT INTO  
+Descrição: Função para que, dado um CPF, retornar quais auxílios essa pessoa recebe e quais instituições oferecem esse auxílio a ela. */
 CREATE OR REPLACE FUNCTION get_auxilio_instituicao (cpf_func PESSOA.cpf%TYPE) RETURN VARCHAR2 IS
     TYPE TIPO_AUXILIO_INSTITUICAO_PESSOA IS RECORD 
     (nome_instituicao INSTITUICAO.nome%TYPE, nome_auxilio AUXILIO.nome_auxilio%TYPE);
