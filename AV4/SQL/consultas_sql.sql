@@ -4,7 +4,10 @@ ALTER TABLE TELEFONE DROP (DDD);
 
 /*2. CREATE INDEX*/
 
+
 /*3. INSERT INTO */
+-- A pessoa quer adicionar um celular.
+insert into Telefone(cpf_origem, telefone) values ('594', '(77) 7777 7777'); 
 
 /*4. UPDATE  */
 UPDATE OCUPACAO SET OCUPACAO = 'Desenvolvedora' WHERE CPF_ORIGEM = '001';
