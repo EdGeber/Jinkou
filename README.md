@@ -15,7 +15,7 @@
 
 ### [Slides on SQL development environments](https://drive.google.com/file/d/1dEKjR7ktyTids2_hkvZbvkKRJ29EKpUx/view)
 
-### [Slides on PL/SQL](https://drive.google.com/file/d/1gUsiI8yItuXvU_DPjSnu0OdjtrAWwDAX/view)
+### [Slides on PL/SQL](https://drive.google.com/file/d/1QjeilF0cXPqA4HwVMLhA4EBqtAZRtneG/view)
 
 ### [Oracle Live SQL](https://livesql.oracle.com/apex/f?p=590:1000)
 
