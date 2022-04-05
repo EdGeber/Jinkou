@@ -2,7 +2,9 @@
 ALTER TABLE TELEFONE ADD (DDD NUMBER(3,0));
 ALTER TABLE TELEFONE DROP (DDD);
 
-/*2. CREATE INDEX*/
+/*2. CREATE INDEX
+Descricao: colocar um índice nos atributos cpf e nome_ativo da tabela Investe_em para agilizar a busca. */
+CREATE INDEX cpf_nome_ativo_investe ON INVESTE_EM(cpf, nome_ativo);
 
 
 /*3. INSERT INTO */
