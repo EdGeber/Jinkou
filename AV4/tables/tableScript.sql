@@ -173,7 +173,7 @@ CREATE TABLE Transfere(
     numero_conta_dest VARCHAR(100) NOT NULL,
     cpf_auditor VARCHAR(100),
 
-    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario, numero_agencia_orig, numero_conta_orig),
+    CONSTRAINT Transfere_pkey PRIMARY KEY (data, horario, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest),
 
     CONSTRAINT Transfere_fkey_auditor FOREIGN KEY (cpf_auditor)
     REFERENCES Auditor(cpf),

@@ -29,7 +29,7 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
             WHEN telefone_not_found THEN
             dbms_output.put_line('Telefone não existe na base de dados');
     END;
-    /
+/
 
 EXECUTE deleta_telefone('(93) 3828-4531', '001');
 
@@ -63,7 +63,7 @@ FROM auditor a
 INNER JOIN transfere t
 ON t.cpf_auditor = a.cpf
 INNER JOIN pessoa p
-ON a.cpf = p.cpf
+ON a.cpf = p.cpf;
 
 /*12, 15, 18, 22, 23, 25. MAX, COUNT, SUBCONSULTA COM IN, GROUP BY, HAVING, CREATE VIEW 
 Descrição: Descobrir, dentre as pessoas com 3 ou mais dependentes, qual conta tem o maior saldo.*/
