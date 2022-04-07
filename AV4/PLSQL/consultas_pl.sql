@@ -114,7 +114,7 @@ CREATE OR REPLACE PROCEDURE pesquisa_telefone_DDD
         CLOSE cursor_telefone;
     END;
 /
-
+-- Teste da procedure pesquisa_telefone_ddd
 EXECUTE pesquisa_telefone_DDD('82');
 
 
@@ -136,15 +136,18 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
             dbms_output.put_line('Telefone não existe na base de dados');
     END;
 /
-
-EXECUTE deleta_telefone('(93) 3828-4531', '001');
+select * from telefone;
+EXECUTE deleta_telefone('(97) 2634-6734', '462');
+select * from telefone;
 /
+
 /*17. CREATE OR REPLACE PACKAGE  */
 
 /*18. CREATE OR REPLACE PACKAGE BODY  */
 
 /*8. IF ELSIF  */
 -- Procedure Helper para o trigger de comando
+-- Para testa-la basta testar o trigger de comando(Ou seja, insert na tabela de transfere)
 -- Atualiza o valor de uma variavel de acordo com a quantidade de ocorrencia daquele status em um dado ano.
 create or replace procedure get_number_Tranferencia(
     variavel out number, 
@@ -213,9 +216,9 @@ Begin
 END;
 / 
 -- Teste para o Trigger de comando
-/*insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
     values (TO_DATE('07/11/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('14:11:10', 'HH24:MI:SS'), 5000.00, 'Rejeitado', 'TED', '367', '891756213', '854', '837917841', '594');
-*/
+
 
 
 /*20. CREATE OR REPLACE TRIGGER (LINHA)  */
@@ -239,3 +242,9 @@ BEGIN
     END IF;
 END;
 /
+-- Teste do trigger de linha
+--  Resultado Esperado: Impede de atualizar o saldo da conta
+--  Motivo: Valor negativo e conta poupança
+select * from conta;
+UPDATE Conta SET saldo_atual = -200 WHERE numero_agencia='367' and numero_conta='891756213';
+select * from conta;
