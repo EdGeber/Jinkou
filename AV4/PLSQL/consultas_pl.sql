@@ -27,10 +27,10 @@ CREATE OR REPLACE FUNCTION get_auxilio_instituicao (cpf_func PESSOA.cpf%TYPE) RE
         END LOOP;
         RETURN resultado;
     END;
-    /
+/
     
 SELECT get_auxilio_instituicao('462') FROM DUAL;
-
+/
 /*3, 9. BLOCO ANÔNIMO, CASE WHEN
 Descrição: Relatório de instituições que fornecem determinado auxílio.
 */
@@ -92,7 +92,7 @@ BEGIN
         END LOOP;
     END;
 END;
-
+/
 /*4, 6, 7, 10, 14, 16. CREATE PROCEDURE, %TYPE, %ROWTYPE, LOOP EXIT WHEN, CURSOR (OPEN, FETCH e CLOSE), USO DE PARÂMETROS (IN, OUT ou IN OUT)  
 Descrição: Procedure que busca todos os telefones que possuam o valor do parâmetro como DDD. */
 CREATE OR REPLACE PROCEDURE pesquisa_telefone_DDD 
@@ -113,12 +113,12 @@ CREATE OR REPLACE PROCEDURE pesquisa_telefone_DDD
         END LOOP;
         CLOSE cursor_telefone;
     END;
-    /
+/
 
 EXECUTE pesquisa_telefone_DDD('82');
 
 
-
+/
 /*15. EXCEPTION WHEN 
 Descrição: dado um telefone e um cpf, tenta remover a tupla da tabela telefone, mas levanta uma exceção caso a tupla não exista. */
 CREATE OR REPLACE PROCEDURE deleta_telefone 
@@ -135,10 +135,10 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
             WHEN telefone_not_found THEN
             dbms_output.put_line('Telefone não existe na base de dados');
     END;
-    /
+/
 
 EXECUTE deleta_telefone('(93) 3828-4531', '001');
-
+/
 /*17. CREATE OR REPLACE PACKAGE  */
 
 /*18. CREATE OR REPLACE PACKAGE BODY  */
