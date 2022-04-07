@@ -139,9 +139,91 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
 
 EXECUTE deleta_telefone('(93) 3828-4531', '001');
 /
-/*17. CREATE OR REPLACE PACKAGE  */
+/*17 e 18. CREATE OR REPLACE PACKAGE e CREATE OR REPLACE PACKAGE BODY 
+Descrição: Packages com procedures para criação de contas e adição de novas tuplas à tabela movimenta. */
 
-/*18. CREATE OR REPLACE PACKAGE BODY  */
+CREATE OR REPLACE PACKAGE insere_contas AS
+    -- Insere nova conta em CONTA
+    PROCEDURE cria_conta (
+    numero_agencia IN CONTA.numero_agencia%TYPE,
+    numero_conta IN CONTA.numero_conta%TYPE,
+    nome_banco IN CONTA.nome_banco%TYPE);
+    
+    -- Insere nova conta em CONTA_CORRENTE
+    PROCEDURE cria_conta_corrente (
+    nome_banco IN CONTA.nome_banco%TYPE,
+    numero_agencia IN CONTA_CORRENTE.numero_agencia%TYPE,
+    numero_conta IN CONTA_CORRENTE.numero_conta%TYPE,
+    credito_disp IN CONTA_CORRENTE.credito_disponivel%TYPE,
+    limite_credito IN CONTA_CORRENTE.limite_credito%TYPE,
+    taxa IN CONTA_CORRENTE.taxa%TYPE);
+    
+    -- Insere nova conta em CONTA_POUPANCA
+    PROCEDURE cria_conta_poupanca (
+    nome_banco IN CONTA.nome_banco%TYPE,
+    numero_agencia IN CONTA_POUPANCA.numero_agencia%TYPE,
+    numero_conta IN CONTA_POUPANCA.numero_conta%TYPE,
+    juros_rend IN CONTA_POUPANCA.juros_rend%TYPE);
+    
+    -- Cria uma nova tupla na relacao MOVIMENTA
+    PROCEDURE add_tupla_movimenta (
+    cpf IN PESSOA.cpf%TYPE,
+    numero_agencia IN CONTA.numero_agencia%TYPE,
+    numero_conta IN CONTA.numero_conta%TYPE);
+END insere_contas;
+/
+
+CREATE OR REPLACE PACKAGE BODY insere_contas AS 
+    -- Insere nova conta em CONTA
+    PROCEDURE cria_conta (
+    numero_agencia IN CONTA.numero_agencia%TYPE,
+    numero_conta IN CONTA.numero_conta%TYPE,
+    nome_banco IN CONTA.nome_banco%TYPE) IS
+    registro_data_criacao_conta CONTA.data_criacao%TYPE;
+    
+    BEGIN
+        SELECT TO_DATE(CURRENT_DATE, 'dd/mm/yyyy') INTO registro_data_criacao_conta FROM dual;
+        INSERT INTO CONTA(numero_agencia, numero_conta, data_criacao, nome_banco) VALUES (numero_agencia, numero_conta, registro_data_criacao_conta, nome_banco);
+    END cria_conta;
+    
+    -- Insere nova conta em CONTA_CORRENTE
+    PROCEDURE cria_conta_corrente (
+    nome_banco IN CONTA.nome_banco%TYPE,
+    numero_agencia IN CONTA_CORRENTE.numero_agencia%TYPE,
+    numero_conta IN CONTA_CORRENTE.numero_conta%TYPE,
+    credito_disp IN CONTA_CORRENTE.credito_disponivel%TYPE,
+    limite_credito IN CONTA_CORRENTE.limite_credito%TYPE,
+    taxa IN CONTA_CORRENTE.taxa%TYPE) IS
+    BEGIN 
+        cria_conta(numero_agencia, numero_conta, nome_banco);
+        INSERT INTO CONTA_CORRENTE(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa) VALUES (numero_agencia, numero_conta, credito_disp, limite_credito, taxa);
+    END cria_conta_corrente;
+    
+    -- Insere nova conta em CONTA_POUPANCA
+    PROCEDURE cria_conta_poupanca (
+    nome_banco IN CONTA.nome_banco%TYPE,
+    numero_agencia IN CONTA_POUPANCA.numero_agencia%TYPE,
+    numero_conta IN CONTA_POUPANCA.numero_conta%TYPE,
+    juros_rend IN CONTA_POUPANCA.juros_rend%TYPE) IS
+    BEGIN
+        cria_conta(numero_agencia, numero_conta, nome_banco);
+        INSERT INTO CONTA_POUPANCA(numero_agencia, numero_conta, juros_rend) VALUES (numero_agencia, numero_conta, juros_rend);
+    END cria_conta_poupanca;
+    
+    -- Cria uma nova tupla na relacao MOVIMENTA
+    PROCEDURE add_tupla_movimenta (
+    cpf IN PESSOA.cpf%TYPE,
+    numero_agencia IN CONTA.numero_agencia%TYPE,
+    numero_conta IN CONTA.numero_conta%TYPE) IS
+    BEGIN
+        INSERT INTO MOVIMENTA(numero_agencia, numero_conta, cpf) VALUES (numero_agencia, numero_conta, cpf);
+    END add_tupla_movimenta;
+END insere_contas;
+/
+EXECUTE insere_contas.cria_conta_corrente('Banco Inter', '456', '987654321', 1459.98, 5000.00, 0.4);
+EXECUTE insere_contas.cria_conta_poupanca('Banco Inter', '556', '987654321', 0.9);
+EXECUTE insere_contas.add_tupla_movimenta('534', '456', '987654321');
+/
 
 /*8. IF ELSIF  */
 -- Procedure Helper para o trigger de comando
