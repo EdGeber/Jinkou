@@ -1,6 +1,10 @@
 /* 1. ALTER TABLE */
+-- Descrição: Adicionar  edepois remover a coluna DDD da tabela Telefone
+select * from telefone;
 ALTER TABLE TELEFONE ADD (DDD NUMBER(3,0));
+select * from telefone;
 ALTER TABLE TELEFONE DROP (DDD);
+select * from telefone;
 
 /*2. CREATE INDEX
 Descricao: colocar um índice nos atributos cpf e nome_ativo da tabela Investe_em para agilizar a busca. */
@@ -8,11 +12,17 @@ CREATE INDEX cpf_nome_ativo_investe ON INVESTE_EM(cpf, nome_ativo);
 
 
 /*3. INSERT INTO */
--- A pessoa quer adicionar um celular.
+-- Descrição: A pessoa quer adicionar um celular.
+select * from telefone;
 insert into Telefone(cpf_origem, telefone) values ('594', '(77) 7777 7777'); 
+select * from telefone;
 
 /*4. UPDATE  */
+-- Descrição: A pessoa mudou de ocupação e temos que atualizar-la.
+select * from ocupacao;
 UPDATE OCUPACAO SET OCUPACAO = 'Desenvolvedora' WHERE CPF_ORIGEM = '001';
+select * from ocupacao;
+
 /*5. DELETE 
 Descrição: dado um telefone e um cpf, deleta o telefone correspondente da base de dados. */
 CREATE OR REPLACE PROCEDURE deleta_telefone 
@@ -30,23 +40,25 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
             dbms_output.put_line('Telefone não existe na base de dados');
     END;
 /
-
-EXECUTE deleta_telefone('(93) 3828-4531', '001');
+-- Teste deleta_telefone
+select * from telefone;
+EXECUTE deleta_telefone('(77) 7777 7777', '594');
+select * from telefone;
 
 /*6. SELECT-FROM-WHERE */
--- bairros e suas ruas, em Recife
+-- Descrição: Quais são os bairros e suas ruas, em Recife
 SELECT BAIRRO, RUA FROM CEP WHERE (CIDADE = 'Recife');
 
 /*7 E 21. BETWEEN E ORDER BY */
--- oferecimentos de auxilios entre 100 e 900 reais, em ordem crescente de valor
+-- Descrição: oferecimentos de auxilios entre 100 e 900 reais, em ordem crescente de valor
 SELECT * FROM OFERECE_AUXILIO WHERE VALOR_MENSAL BETWEEN 100 AND 900 ORDER BY VALOR_MENSAL;
 
 /*8. IN */
--- ceps de pernambuco e do rio grande do norte
+--Descrição: Quis são os ceps de pernambuco e do rio grande do norte
 SELECT CEP FROM CEP WHERE ESTADO IN ('PE', 'RN');
 
 /*9. LIKE  */
--- ruas em homenagem a Damorim
+-- Descrição: Quais são as Ruas em homenagem a Damorim
 SELECT * FROM CEP WHERE RUA LIKE '%Damorim%';
 
 /*10. IS NULL OR IS NOT NULL */
@@ -82,7 +94,7 @@ WHERE NUMERO_AGENCIA IN (SELECT NUMERO_AGENCIA FROM DADOS_PESSOA_TEM_DEPENDENTES
 AND NUMERO_CONTA IN (SELECT NUMERO_CONTA FROM DADOS_PESSOA_TEM_DEPENDENTES)));
 
 /*13. MIN  */
--- motivo das transferências de menor valor registrado
+--Descrição: motivo das transferências de menor valor registrado
 SELECT t_outer.motivo FROM Transfere t_outer WHERE t_outer.valor IN (
     SELECT MIN(t_inner.valor) FROM Transfere t_inner);
 
@@ -112,7 +124,7 @@ SELECT Ins.nome, Ins.data_abertura from Instituicao Ins WHERE Ins.cnpj IN (
 
 /*19. SUBCONSULTA COM ANY 
 Descrição: Relatório sobre as transferências cujo valor transferido é maior do que o transferido por alguma outra transferência. */
-SELECT * FROM TRANSFERE
+SELECT data, cast(horario as time)horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor FROM TRANSFERE
 WHERE VALOR > ANY 
 (SELECT VALOR FROM TRANSFERE);
 
