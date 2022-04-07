@@ -31,7 +31,67 @@ CREATE OR REPLACE FUNCTION get_auxilio_instituicao (cpf_func PESSOA.cpf%TYPE) RE
     
 SELECT get_auxilio_instituicao('462') FROM DUAL;
 
-/*3. BLOCO ANÔNIMO  */
+/*3, 9. BLOCO ANÔNIMO, CASE WHEN
+Descrição: Relatório de instituições que fornecem determinado auxílio.
+*/
+/*Declaração do bloco anônimo*/
+DECLARE
+    /* Declaração do tipo: inst_aux 
+     * que será usado para referenciar 
+     * as instituições que oferecem o auxilio */
+    TYPE inst_aux IS RECORD (
+        st_instituicao Oferece_auxilio.cnpj%TYPE,
+        st_auxilio Oferece_auxilio.cod_aux%TYPE
+    );
+    /* Declaração das variáveis que serão 
+     * acessadas posteriormente */
+    var_auxilio inst_aux;
+    var_codauxilio VARCHAR(20); -- grava um código de auxilio
+    var_nomeauxilio VARCHAR(20); -- grava um nome de instituição
+    var_nomeinstituicao VARCHAR(50); -- guarda o nome de uma instituição
+    /* Cursor que será utilizado no FOR LOOP para retorno de cada
+     * cnpj para pode retornar a devida instituição após */
+    CURSOR curs_cnpj IS SELECT cnpj FROM Oferece_auxilio;
+BEGIN
+    /* Variável que fará o papel de input*/
+    var_nomeauxilio := 'Moradia Estudantil';
+    /* Caso o input (var_nomeauxilio) exista no sistema,
+     * guarda o código do auxilio na variável var_codauxilio */
+    CASE var_nomeauxilio
+    WHEN 'Moradia Estudantil' THEN
+        var_codauxilio := 1;
+    WHEN 'Auxílio-Creche' THEN
+        var_codauxilio := 2;
+    WHEN 'Bolsa Família' THEN
+        var_codauxilio := 3;
+    WHEN 'Auxílio Emergencial' THEN
+        var_codauxilio := 4;
+    WHEN 'Auxílio Internet' THEN
+        var_codauxilio := 5;
+    WHEN 'Vale Transporte' THEN
+        var_codauxilio := 6;
+    ELSE 
+        /* Caso o input não exista, retorna uma mensagem de erro.*/
+        DBMS_OUTPUT.PUT_LINE('Esse auxílio não está no sistema.');
+    END CASE;
+    /* Inicio do FOR LOOP */
+    BEGIN
+        /* Guarda cada cnpj que tenha o código de auxilio
+         * definido anteriormente. */
+        FOR curs_cnpj IN (SELECT cnpj FROM Oferece_auxilio 
+                        WHERE cod_aux = var_codauxilio )
+        LOOP
+            /* Guarda o nome da instituição que possui o
+             * cnpj que foi encontrado anteriormente.*/
+            SELECT nome INTO var_nomeinstituicao 
+            FROM Instituicao 
+            WHERE cnpj = (curs_cnpj.cnpj);
+            /* Retorna o nome da instituição que oferece 
+             * determinado auxilio. */
+            DBMS_OUTPUT.PUT_LINE(var_nomeinstituicao);
+        END LOOP;
+    END;
+END;
 
 /*4, 6, 7, 10, 14, 16. CREATE PROCEDURE, %TYPE, %ROWTYPE, LOOP EXIT WHEN, CURSOR (OPEN, FETCH e CLOSE), USO DE PARÂMETROS (IN, OUT ou IN OUT)  
 Descrição: Procedure que busca todos os telefones que possuam o valor do parâmetro como DDD. */
@@ -58,8 +118,6 @@ CREATE OR REPLACE PROCEDURE pesquisa_telefone_DDD
 EXECUTE pesquisa_telefone_DDD('82');
 
 /*8. IF ELSIF  */
-
-/*9. CASE WHEN  */
 
 /*15. EXCEPTION WHEN 
 Descrição: dado um telefone e um cpf, tenta remover a tupla da tabela telefone, mas levanta uma exceção caso a tupla não exista. */
