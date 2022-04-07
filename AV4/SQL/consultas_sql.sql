@@ -1,18 +1,20 @@
-/* 1. ALTER TABLE */
-ALTER TABLE TELEFONE ADD (DDD NUMBER(3,0));
-ALTER TABLE TELEFONE DROP (DDD);
+/* 1. ALTER TABLE 
+Descrição: removendo a coluna que indica se um número é positivo ou não, já que um trigger de linha foi criado para isso.*/
+ALTER TABLE CONTA_CORRENTE DROP (POSITIVO);
 
 /*2. CREATE INDEX
 Descricao: colocar um índice nos atributos cpf e nome_ativo da tabela Investe_em para agilizar a busca. */
 CREATE INDEX cpf_nome_ativo_investe ON INVESTE_EM(cpf, nome_ativo);
 
 
-/*3. INSERT INTO */
--- A pessoa quer adicionar um celular.
+/*3. INSERT INTO 
+Descrição: A pessoa quer adicionar um celular. */
 insert into Telefone(cpf_origem, telefone) values ('594', '(77) 7777 7777'); 
 
-/*4. UPDATE  */
+/*4. UPDATE 
+Descrição: A pessoa mudou de profissão. */
 UPDATE OCUPACAO SET OCUPACAO = 'Desenvolvedora' WHERE CPF_ORIGEM = '001';
+
 /*5. DELETE 
 Descrição: dado um telefone e um cpf, deleta o telefone correspondente da base de dados. */
 CREATE OR REPLACE PROCEDURE deleta_telefone 
@@ -33,24 +35,24 @@ CREATE OR REPLACE PROCEDURE deleta_telefone
 
 EXECUTE deleta_telefone('(93) 3828-4531', '001');
 
-/*6. SELECT-FROM-WHERE */
--- bairros e suas ruas, em Recife
+/*6. SELECT-FROM-WHERE 
+Descrição: bairros e suas ruas, em Recife.*/
 SELECT BAIRRO, RUA FROM CEP WHERE (CIDADE = 'Recife');
 
-/*7 E 21. BETWEEN E ORDER BY */
--- oferecimentos de auxilios entre 100 e 900 reais, em ordem crescente de valor
+/*7 E 21. BETWEEN E ORDER BY 
+Descrição: oferecimentos de auxilios entre 100 e 900 reais, em ordem crescente de valor. */
 SELECT * FROM OFERECE_AUXILIO WHERE VALOR_MENSAL BETWEEN 100 AND 900 ORDER BY VALOR_MENSAL;
 
-/*8. IN */
--- ceps de pernambuco e do rio grande do norte
+/*8. IN 
+Descrição: ceps de pernambuco e do rio grande do norte. */
 SELECT CEP FROM CEP WHERE ESTADO IN ('PE', 'RN');
 
-/*9. LIKE  */
--- ruas em homenagem a Damorim
+/*9. LIKE  
+Descrição: ruas em homenagem a Damorim. */
 SELECT * FROM CEP WHERE RUA LIKE '%Damorim%';
 
-/*10. IS NULL OR IS NOT NULL */
--- situacao de transferencias auditadas ou em audicao
+/*10. IS NULL OR IS NOT NULL 
+Descrição: situacao de transferencias auditadas ou em audicao.*/
 SELECT VALOR, MOTIVO, STATUS FROM TRANSFERE WHERE CPF_AUDITOR IS NOT NULL;
 
 /*11. INNER JOIN  
@@ -81,8 +83,8 @@ WHERE SALDO_ATUAL IN (SELECT MAX (SALDO_ATUAL) FROM (SELECT * FROM CONTA
 WHERE NUMERO_AGENCIA IN (SELECT NUMERO_AGENCIA FROM DADOS_PESSOA_TEM_DEPENDENTES) 
 AND NUMERO_CONTA IN (SELECT NUMERO_CONTA FROM DADOS_PESSOA_TEM_DEPENDENTES)));
 
-/*13. MIN  */
--- motivo das transferências de menor valor registrado
+/*13. MIN  
+Descrição: motivo das transferências de menor valor registrado*/
 SELECT t_outer.motivo FROM Transfere t_outer WHERE t_outer.valor IN (
     SELECT MIN(t_inner.valor) FROM Transfere t_inner);
 
@@ -116,8 +118,8 @@ SELECT * FROM TRANSFERE
 WHERE VALOR > ANY 
 (SELECT VALOR FROM TRANSFERE);
 
-/*20. SUBCONSULTA COM ALL  */
--- 5.1 Qual a pessoa que mais fez transações considerando as contas das quais é titular?
+/*20. SUBCONSULTA COM ALL 
+Descrição: 5.1 Qual a pessoa que mais fez transações considerando as contas das quais é titular? */
 
 -- view do número de transações feitas por cada cliente
 CREATE VIEW transacoes_por_cliente (cpf_cliente, numero_transacoes) AS
