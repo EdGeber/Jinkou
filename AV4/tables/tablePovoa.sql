@@ -120,14 +120,14 @@ insert into Conta(numero_agencia, numero_conta, data_criacao, nome_banco, saldo_
     values ('367', '891756213', TO_DATE('07/02/2012', 'DD/MM/YYYY'), 'Banco Santander', 12111.12);
 
 -- Povoamento: ContaCorrente
-insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
-    values ('001', '891756213', 3948.23, 21000.00, 0.8, 1);
-insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
-    values ('163', '123432189', 678.50, 2000.00, 0.2, 1);
-insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
-    values ('932', '089375612', 20.00, 5000.00, 0.8, 0);
-insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa, positivo)
-    values ('765', '891756213', 1500.00, 7000.00, 0.6, 1);
+insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa)
+    values ('001', '891756213', 3948.23, 21000.00, 0.8);
+insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa)
+    values ('163', '123432189', 678.50, 2000.00, 0.2);
+insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa)
+    values ('932', '089375612', 20.00, 5000.00, 0.8);
+insert into Conta_Corrente(numero_agencia, numero_conta, credito_disponivel, limite_credito, taxa)
+    values ('765', '891756213', 1500.00, 7000.00, 0.6);
 
 -- Povoamento: ContaPoupanca
 insert into Conta_Poupanca(numero_agencia, numero_conta, juros_rend)
