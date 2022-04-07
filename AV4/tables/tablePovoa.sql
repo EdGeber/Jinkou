@@ -172,6 +172,25 @@ insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig,
 insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
     values (TO_DATE('05/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'Aceito', 'Pix', '932', '089375612', '163', '123432189', null);
 
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('07/02/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('10:13:18', 'HH24:MI:SS'), 100000.00, 'Rejeitado', 'Pix', '001', '891756213', '163', '123432189', '543');
+
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('02/03/2021', 'DD/MM/YYYY'), TO_TIMESTAMP('23:30:19', 'HH24:MI:SS'), 25342.00, 'Aceito', 'Pix', '001', '891756213', '932', '089375612', '543');
+
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('23/11/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('12:11:40', 'HH24:MI:SS'), 323.00, 'Rejeitado', 'TED', '129', '891756213', '854', '837917841', null);
+
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('01/03/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('10:14:41', 'HH24:MI:SS'), 572.00, 'Rejeitado', 'TED', '001', '891756213', '163', '123432189', null);
+
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('21/04/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:22:23', 'HH24:MI:SS'), 3.00, 'Não concluída', 'PIX', '129', '891756213', '932', '089375612', null);
+
+insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('22/07/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('13:05:55', 'HH24:MI:SS'), 332333.00, 'Aceito', 'TED', '367', '891756213', '854', '837917841', '543');
+
+
 -- Povoamento: Conta Investe em
 insert into Conta_investe_em(data_inicio, hora_inicio, valor_mensal_investido, nome_ativo, numero_agencia, numero_conta) 
     values (TO_DATE('05/10/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('09:28:05', 'HH24:MI:SS'), 57.00, 'Tesouro Selic','001', '891756213');
