@@ -117,7 +117,7 @@ CREATE OR REPLACE PROCEDURE pesquisa_telefone_DDD
 
 EXECUTE pesquisa_telefone_DDD('82');
 
-/*8. IF ELSIF  */
+
 
 /*15. EXCEPTION WHEN 
 Descrição: dado um telefone e um cpf, tenta remover a tupla da tabela telefone, mas levanta uma exceção caso a tupla não exista. */
@@ -143,7 +143,80 @@ EXECUTE deleta_telefone('(93) 3828-4531', '001');
 
 /*18. CREATE OR REPLACE PACKAGE BODY  */
 
+/*8. IF ELSIF  */
+-- Procedure Helper para o trigger de comando
+-- Atualiza o valor de uma variavel de acordo com a quantidade de ocorrencia daquele status em um dado ano.
+create or replace procedure get_number_Tranferencia(
+    variavel out number, 
+    ano date, 
+    statusTarget Transfere.status%type
+) is transfException Exception;
+begin
+    -- Aqui está o if.. elsif.. else
+    if(statusTarget != 'Aceito' and statusTarget != 'Rejeitado' and statusTarget != 'Não concluída' and statusTarget != 'todas') then 
+        raise transfException;
+    elsif(statusTarget = 'todas') then
+        select count(*) 
+        into variavel
+        from Transfere
+        where (to_char(Transfere.data, 'YYYY') = to_char(ano, 'YYYY'));
+    else
+        select count(*) 
+        into variavel
+        from Transfere
+        where (to_char(Transfere.data, 'YYYY') = to_char(ano, 'YYYY') and (Transfere.status = statusTarget));
+    end if;
+    exception 
+        when transfException then
+            RAISE_APPLICATION_ERROR(-20001,'Status de transferência invalido', FALSE);
+end get_number_Tranferencia;
+/
+
 /*19. CREATE OR REPLACE TRIGGER (COMANDO)  */
+-- Retorna a quantidade de transferencias aceitas, em analise e rejeitadas no ano atual e também a quantidade total de transferencias
+-- Apos o insert na tabela de Transferencias
+create or replace trigger Numero_transferencia_mes
+after insert on Transfere
+DECLARE
+    totaltm number;
+    acpttm number;
+    rjcttm number;
+    qtm number;
+    totalt number;
+    today date;
+
+Begin
+    select sysdate into today from dual;
+    
+    -- Total de transferencia no mes.
+    get_number_Tranferencia(totaltm, today, 'todas');
+    -- Total de trnasferencia aceitas no mes.
+    get_number_Tranferencia(acpttm, today, 'Aceito');
+    -- Total de transferencias rejeitadas no mes.
+    get_number_Tranferencia(rjcttm, today, 'Rejeitado');
+    -- Total de transferencias em analise no mes.
+    get_number_Tranferencia(qtm, today, 'Não concluída');
+    
+    -- Total de transferencias na tabela.
+    select count(*) 
+    into totalt
+    from Transfere;
+    -- Output
+    DBMS_OUTPUT.PUT_LINE('dados da tabela Transfere:');
+    DBMS_OUTPUT.PUT_LINE('  Neste ano de '||to_char(today, 'YYYY')||' foram feitas: ');
+    DBMS_OUTPUT.PUT_LINE('      '||acpttm||' transferência(s) Aceita(s)');
+    DBMS_OUTPUT.PUT_LINE('      '||qtm||' transferência(s) Em analíse');
+    DBMS_OUTPUT.PUT_LINE('      '||rjcttm||' transferência(s) Rejeitada(s)');
+    DBMS_OUTPUT.PUT_LINE('  Totalizando: ');
+    DBMS_OUTPUT.PUT_LINE('      '||totaltm||' transferência(s) no ano');
+    DBMS_OUTPUT.PUT_LINE('      '||totalt||' transferencia(s) ao todo');
+END;
+/ 
+-- Teste para o Trigger de comando
+/*insert into Transfere(data, horario, valor, status, motivo, numero_agencia_orig, numero_conta_orig, numero_agencia_dest, numero_conta_dest, cpf_auditor) 
+    values (TO_DATE('07/11/2022', 'DD/MM/YYYY'), TO_TIMESTAMP('14:11:10', 'HH24:MI:SS'), 5000.00, 'Rejeitado', 'TED', '367', '891756213', '854', '837917841', '594');
+*/
+
 
 /*20. CREATE OR REPLACE TRIGGER (LINHA)  */
 --Descrição: não permite que o saldo de uma conta poupança seja negativo mas permite que o saldo de contas correntes o sejam
