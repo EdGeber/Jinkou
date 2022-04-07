@@ -1,6 +1,8 @@
 /* 1. ALTER TABLE 
 Descrição: removendo a coluna que indica se um número é positivo ou não, já que um trigger de linha foi criado para isso.*/
+select * from Conta_Corrente;
 ALTER TABLE CONTA_CORRENTE DROP (POSITIVO);
+select * from Conta_Corrente;
 
 /*2. CREATE INDEX
 Descricao: colocar um índice nos atributos cpf e nome_ativo da tabela Investe_em para agilizar a busca. */
@@ -164,5 +166,6 @@ AND numero_conta IN (SELECT numero_conta FROM conta_poupanca))) inter
 ON p.cpf = inter.cpf;
 
 /*26. GRANT/REVOKE  */
+-- O livesql não permite utiliza-los :/
 grant insert, select on Dependente to public;
 revoke insert on Dependente from public;
