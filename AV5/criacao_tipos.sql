@@ -1,9 +1,4 @@
-    /* 
-    Todos os relacionamentos precisam ser transformados em 
-        varray ou nestedTable
-    */ 
-
-    -- obj: ativo financeiro
+   -- obj: ativo financeiro
 CREATE OR REPLACE TYPE tp_ativo_financeiro AS OBJECT (
   nome VARCHAR2(100),
   tipo VARCHAR2(100)
@@ -106,8 +101,8 @@ CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
     parentesco varchar(100),
     data_nasc DATE,
     
-    MEMBER FUNCTION getParente() RETURN tp_pessoa,
-    ORDER MEMBER FUNCTION comparaDependente(d tp_dependente) RETURN INTEGER;
+    MEMBER FUNCTION getParente RETURN tp_pessoa,
+    ORDER MEMBER FUNCTION comparaDependente(d tp_dependente) RETURN INTEGER
 );
 /
 
@@ -126,7 +121,10 @@ CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
 CREATE OR REPLACE TYPE tp_nt_dependentes AS TABLE OF tp_dependente;
 /
 
-ALTER TYPE tp_pessoa ADD ATTRIBUTE (dependentes tp_nt_dependentes) CASCADE;
+CREATE TABLE tb_relac_dependente_pessoa(
+    cpf varchar(100),
+    dependentes tp_nt_dependentes
+) NESTED TABLE dependentes STORE AS tb_dependentes;
 /
 
 -- obj: ocupacao
