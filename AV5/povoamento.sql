@@ -118,6 +118,67 @@ INSERT INTO tb_instituicao VALUES (
         TO_DATE('23/12/1986', 'DD/MM/YYYY')
     )
 );
+/
+
+--Povoamento: tb_relac_dependente_pessoa
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '001',
+    tp_nt_dependentes(
+        tp_dependente('Josevan', 'Almir', 'Valerio', 'Pai', to_date('05/04/2002','DD/MM/YYYY'))
+    )
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '010',
+    tp_nt_dependentes(
+            tp_dependente(
+                'Jacinto', 
+                'Perereira', 
+                'da Silva', 
+                'Avô', 
+                to_date('12/12/2000','DD/MM/YYYY')
+            )
+        )
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '462',
+    tp_nt_dependentes(
+        tp_dependente('Flávia', 'Martins', 'Sodré', 'Filha', to_date('05/11/2020','DD/MM/YYYY')),
+        tp_dependente('Khalil', 'Sadul', 'Al', 'Irmão', to_date('12/12/1985','DD/MM/YYYY')),
+        tp_dependente('José', 'Armando','Canduras', 'Tio', to_date('12/12/2000','DD/MM/YYYY'))
+    )
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '534',
+     tp_nt_dependentes(
+        tp_dependente('Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY')),
+        tp_dependente('Balan', 'Clodoaldo', 'Garcia', 'Irmão', to_date('12/03/1930','DD/MM/YYYY')),
+        tp_dependente('Severino', 'Elioner', 'Cabral', 'Tio', to_date('12/12/1985','DD/MM/YYYY'))
+     )
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '888',
+    tp_nt_dependentes()
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '594',
+    NULL
+);
+/
+INSERT INTO tb_relac_dependente_pessoa VALUES(
+    '534',
+    tp_nt_dependentes(
+            tp_dependente('Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY')),
+            tp_dependente('Balan', 'Clodoaldo', 'Garcia', 'Irmão', to_date('12/03/1930','DD/MM/YYYY')),
+            tp_dependente('Severino', 'Elioner', 'Cabral', 'Tio', to_date('12/12/1985','DD/MM/YYYY'))
+    )
+);
+/
+
 
 -- Povoamento: Cliente
 INSERT INTO tb_cliente VALUES (
@@ -139,9 +200,6 @@ INSERT INTO tb_cliente VALUES (
       tp_array_telefone(
         tp_telefone(9338284531), 
         tp_telefone(9351513333)
-        ),
-      tp_nt_dependentes(
-        tp_dependente('Josevan', 'Almir', 'Valerio', 'Pai', to_date('05/04/2002','DD/MM/YYYY'))
         ),
       tp_array_ocupacao(tp_ocupacao('Advogada'))
     )
@@ -165,15 +223,6 @@ INSERT INTO tb_cliente VALUES (
         tp_array_telefone(
             tp_telefone(44, 38704688),
             tp_telefone(44, 61407254)
-        ),
-        tp_nt_dependentes(
-            tp_dependente(
-                'Jacinto', 
-                'Perereira', 
-                'da Silva', 
-                'Avô', 
-                to_date('12/12/2000','DD/MM/YYYY')
-            )
         ),
         tp_array_ocupacao(
             tp_ocupacao('Medico')
@@ -200,11 +249,6 @@ INSERT INTO tb_cliente VALUES (
       tp_array_telefone(
         tp_telefone(97, 26346734)
         ),
-      tp_nt_dependentes(
-        tp_dependente('Flávia', 'Martins', 'Sodré', 'Filha', to_date('05/11/2020','DD/MM/YYYY')),
-        tp_dependente('Khalil', 'Sadul', 'Al', 'Irmão', to_date('12/12/1985','DD/MM/YYYY')),
-        tp_dependente('José', 'Armando','Canduras', 'Tio', to_date('12/12/2000','DD/MM/YYYY'))
-        ),
       tp_array_ocupacao(tp_ocupacao('Professor'))
     )
 );
@@ -229,11 +273,6 @@ INSERT INTO tb_cliente VALUES (
         tp_telefone(6122897253),
         tp_telefone(6145105597)
         ),
-      tp_nt_dependentes(
-        tp_dependente('Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY')),
-        tp_dependente('Balan', 'Clodoaldo', 'Garcia', 'Irmão', to_date('12/03/1930','DD/MM/YYYY')),
-        tp_dependente('Severino', 'Elioner', 'Cabral', 'Tio', to_date('12/12/1985','DD/MM/YYYY'))
-        ),
       tp_array_ocupacao(tp_ocupacao('Jornalista'))
     )
 );
@@ -257,7 +296,6 @@ INSERT INTO tb_cliente VALUES (
         tp_array_telefone(
             tp_telefone(13, 33125636)
         ),
-        tp_nt_dependentes(),
         tp_array_ocupacao(tp_ocupacao('Engenheiro'))
     )
 );
@@ -283,7 +321,6 @@ INSERT INTO tb_auditor VALUES (
             tp_telefone(82, 37681394),
             tp_telefone(82, 92457943)
         ),
-        null,
         133
     )
 );
@@ -307,11 +344,6 @@ INSERT INTO tb_auditor VALUES (
         tp_array_telefone(
             tp_telefone(6122897253),
             tp_telefone(6145105597)
-        ),
-        tp_nt_dependentes(
-            tp_dependente('Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY')),
-            tp_dependente('Balan', 'Clodoaldo', 'Garcia', 'Irmão', to_date('12/03/1930','DD/MM/YYYY')),
-            tp_dependente('Severino', 'Elioner', 'Cabral', 'Tio', to_date('12/12/1985','DD/MM/YYYY'))
         ),
         422
     )
@@ -1018,4 +1050,3 @@ INSERT INTO tb_oferece_auxilio VALUES (
         TO_DATE('01/01/2010', 'DD/MM/YYYY')
     )
 );
-
