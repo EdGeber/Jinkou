@@ -23,16 +23,14 @@ CREATE TABLE tb_cliente OF tp_cliente(
     cpf PRIMARY KEY,
     primeiro_nome NOT NULL,
     endereco_numero CHECK (endereco_numero >= 0)
-)
-    NESTED TABLE dependentes STORE AS tb_dependentes_cliente;  
+);  
 /
 
 CREATE TABLE tb_auditor OF tp_auditor(
     cpf PRIMARY KEY,
     primeiro_nome NOT NULL,
-    endereco_numero CHECK (endereco_numero >= 0),
-) 
-    NESTED TABLE dependentes STORE AS tp_dependentes_auditor; 
+    endereco_numero CHECK (endereco_numero >= 0)
+); 
 /
 
 
