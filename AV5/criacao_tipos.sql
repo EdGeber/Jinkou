@@ -19,6 +19,14 @@ CREATE OR REPLACE TYPE tp_instituicao AS OBJECT(
   FINAL MEMBER PROCEDURE set_DataAbertura (data DATE)
 );
 /
+CREATE OR REPLACE TYPE BODY tp_instituicao AS
+    FINAL MEMBER PROCEDURE set_DataAbertura(data DATE) IS
+    BEGIN
+        data_abertura := data;        
+    END;
+END;
+/
+    
 
 -- obj: telefone
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
@@ -94,6 +102,14 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT(
 ) NOT FINAL NOT INSTANTIABLE;
 /
 
+CREATE OR REPLACE TYPE BODY tp_pessoa AS
+    FINAL MEMBER PROCEDURE set_DataNasc(data DATE) IS
+    BEGIN
+        data_nasc := data;
+    END;
+END;
+/
+
 CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
     primeiro_nome varchar(100),
     sobrenomes_centrais varchar(100),
@@ -101,21 +117,10 @@ CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
     parentesco varchar(100),
     data_nasc DATE,
     
-    MEMBER FUNCTION getParente RETURN tp_pessoa,
+    MEMBER FUNCTION getParente RETURN varchar,
     ORDER MEMBER FUNCTION comparaDependente(d tp_dependente) RETURN INTEGER
 );
 /
-
--- CREATE OR REPLACE TYPE BODY tp_dependente AS
-
---     ORDER MEMBER FUNCTION comparaDependente (d tp_dependente) RETURN INTEGER IS
---     begin
---         IF(self.)
---     end;
-
--- /
-    
-
 
 -- TIPO NESTED TABLE DE DEPENDENTE --
 CREATE OR REPLACE TYPE tp_nt_dependentes AS TABLE OF tp_dependente;
@@ -143,17 +148,6 @@ CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa(
 );
 /
 
-/* declare
-    auditor tp_auditor := tp_auditor('56464','José','','Jota',0,'Apt 825', '',
-        tp_cep('5643563','aaaaa','bbbbbb','ccccc','PE'),
-        tp_array_telefone(tp_telefone(81,9865134684)),tp_nt_dependentes(),8);
-    motivo varchar := 'Cartao';
-    conta_org tp_conta_corrente := tp_conta_corrente();
-    conta_dest tp_conta_poupanca := tp_conta_poupanca();
-begin
-    DBMS_OUTPUT.PUT_LINE('Detalhes da conta');
-end;
- */
 -- obj: auditor
 CREATE OR REPLACE TYPE tp_auditor UNDER tp_pessoa(
     tempo_serv NUMBER
@@ -168,12 +162,6 @@ CREATE OR REPLACE TYPE tp_conta AS OBJECT(
     nome_banco VARCHAR(100),
     saldo_atual NUMBER(10,2),
     
-    MEMBER PROCEDURE fazTransferencia(SELF tp_conta,
-                                     contaDest in out tp_conta, 
-                                     valor in out number,
-                                     auditor in out tp_auditor,
-                                     motivo in out varchar
-                                     ),
     MEMBER PROCEDURE exibirDetalhesConta
 ) NOT FINAL NOT INSTANTIABLE;
 /
@@ -255,63 +243,6 @@ CREATE OR REPLACE TYPE tp_transfere AS OBJECT(
        É preciso ver se não há problema de referencia vázia */
     auditor REF tp_auditor 
 );
-/
-
-CREATE OR REPLACE TYPE BODY tp_conta AS
-    member procedure fazTransferencia(SELF tp_conta,
-                                     contaDest in out tp_conta, 
-                                     valor in out number,
-                                     auditor in out tp_auditor DEFAULT null,
-                                     motivo in out varchar) 
-    is 
-        sucesso exception;
-        semMoney exception; 
-        auditorNecessario exception;  
-        horario_transf TIMESTAMP;
-        data date;
-        status VARCHAR;
-    begin
-        data := CONVERT(SYSDATE, GETDATE());
-        horario_transf := cast(SYSDATE as TIME);
-        
-        IF (saldo_atual <= valor) THEN
-            raise semMoney;
-        END IF;
-
-        IF (valor >= 5000 && auditor == null) THEN
-            raise auditorNecessario;
-        END IF;
-
-        raise sucesso;
-        
-        exception
-        when semMoney then
-            dbms_output.put_line('Rejected - Saldo insuficiente');
-            INSERT INTO tb_transfere(conta_orig, conta_dest, data, horario, valor, status, motivo, auditor)
-             VALUES(SELF, conta_dest, data, horario_transf, valor, "Rejeitado", motivo, auditor)
-
-        when auditorNecessario then
-            INSERT INTO tb_transfere(conta_orig, conta_dest, data, horario, valor, status, motivo, auditor)
-            VALUES(SELF, conta_dest, data, horario_transf, valor, "Em Anadamento", motivo, auditor)
-            dbms_output.put_line('Rejected - É necessário informar auditor para transferencias >= 5000.00');
-        when sucesso then
-            dbms_output.put_line('Accept - Sua transferencia foi aprovada');
-
-            IF( valor >= 5000)
-                INSERT INTO tb_transfere(conta_orig, conta_dest, data, horario, valor, status, motivo, auditor)
-                                  VALUES(SELF, conta_dest, data, horario_transf, valor, "Não concluída", motivo, auditor)
-                dbms_output.put_line('Sucesso - Sua transferencia está em Análise');
-            ELSE
-                INSERT INTO tb_transfere(conta_orig, conta_dest, data, horario, valor, status, motivo, auditor)
-                VALUES(SELF, conta_dest, data, horario_transf, valor, "Aceito", motivo, auditor)
-                dbms_output.put_line('Sucesso - Sua transferencia foi Aceita');                
-            END IF;
-            saldo_atual := saldo_atual - valor;
-            contaDest.saldo_atual = contaDest.saldo_atual - valor;
-        end fazTransferencia;
-        
-    end
-end
 /
 
 

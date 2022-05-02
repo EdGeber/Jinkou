@@ -37,18 +37,18 @@ CREATE TABLE tb_auditor OF tp_auditor(
 
 CREATE OR REPLACE TYPE BODY tp_dependente AS
 
-  ADD MEMBER FUNCTION getParente() RETURN tp_pessoa AS  
+  MEMBER FUNCTION getParente RETURN varchar AS  
 
   parente_encontrado BOOLEAN := false;
-  cpf_atual tp_pessoa.cpf%TYPE;
+  cpf_atual varchar(100);
 
   cursor cpfs_ntsDependentes is
-    ((select cpf, dependentes from tb_cliente)
-    union
-     (select cpf, dependentes from tb_auditor));
+  select cpf, dependentes from tb_relac_dependente_pessoa;
 
   begin
     -- itera sobre cada dependente de cada cliente de tb_cliente
+
+    --TODO: consertar cursor (open, fetch, close, etc)
     for cpf_atual, ntDependentes in cpfs_ntsDependentes loop
       for dependente in table(ntDependentes) loop
         if(self.primeiro_nome = dependente.primeiro_nome and
@@ -71,6 +71,7 @@ CREATE OR REPLACE TYPE BODY tp_dependente AS
     if(proprio_nome_completo = outro_nome_completo) then return 0 end if;
     return -1;
   end;
+end;
 /
 
 
