@@ -2,7 +2,7 @@ CREATE TABLE tb_ativo_financeiro OF tp_ativo_financeiro (
   nome PRIMARY KEY
 );
 /
-
+-- OI :D
 CREATE TABLE tb_auxilio OF tp_auxilio(
     cod_auxilio PRIMARY KEY,
     nome_auxilio NOT NULL
@@ -14,10 +14,10 @@ CREATE TABLE tb_instituicao OF tp_instituicao (
 );
 /
 
-CREATE TABLE tb_cep OF tp_cep (
-  cep PRIMARY KEY
-);
-/
+-- CREATE TABLE tb_cep OF tp_cep (
+--   cep PRIMARY KEY
+-- );
+-- /
 
 CREATE TABLE tb_cliente OF tp_cliente(
     cpf PRIMARY KEY,
@@ -32,26 +32,50 @@ CREATE TABLE tb_auditor OF tp_auditor(
     primeiro_nome NOT NULL,
     endereco_numero CHECK (endereco_numero >= 0),
 ) 
-    NESTED TABLE  dependentes AS tp_dependentes_auditor; 
+    NESTED TABLE dependentes STORE AS tp_dependentes_auditor; 
 /
 
-/*
+
+
 CREATE OR REPLACE TYPE BODY tp_dependente AS
 
-    ADD MEMBER FUNCTION getParente() RETURN tp_pessoa AS  
-    begin
-      -- iterar sobre a concatenação da tabela tb_cliente
-      -- com a tabela tb_auditor
-    end;
+  ADD MEMBER FUNCTION getParente() RETURN tp_pessoa AS  
 
-    ORDER MEMBER FUNCTION comparaDependente (d tp_dependente) RETURN INTEGER IS
-    begin
-        -- ordenar primeiro por nome de parente, e então pelo próprio nome
-        IF(self.)
-    end;
+  parente_encontrado BOOLEAN := false;
+  cpf_atual tp_pessoa.cpf%TYPE;
 
+  cursor cpfs_ntsDependentes is
+    ((select cpf, dependentes from tb_cliente)
+    union
+     (select cpf, dependentes from tb_auditor));
+
+  begin
+    -- itera sobre cada dependente de cada cliente de tb_cliente
+    for cpf_atual, ntDependentes in cpfs_ntsDependentes loop
+      for dependente in table(ntDependentes) loop
+        if(self.primeiro_nome = dependente.primeiro_nome and
+        self.sobrenomes_centrais = dependente.sobrenomes_centrais and
+        self.ultimo_nome = dependente.ultimo_nome) then
+          parente_encontrado := true;
+          exit;
+        end if;
+      end loop;
+        if(parente_encontrado) then exit end if;
+    end loop;
+    return cpf_atual;
+  end;
+
+  ORDER MEMBER FUNCTION comparaDependente (d tp_dependente) RETURN INTEGER IS
+  proprio_nome_completo varchar2(300) := self.primeiro_nome || self.sobrenomes_centrais || self.ultimo_nome;
+  outro_nome_completo   varchar2(300) :=    d.primeiro_nome ||    d.sobrenomes_centrais ||    d.ultimo_nome;
+  begin
+    if(proprio_nome_completo > outro_nome_completo) then return 1 end if;
+    if(proprio_nome_completo = outro_nome_completo) then return 0 end if;
+    return -1;
+  end;
 /
-*/
+
+
 
 CREATE TABLE tb_conta_corrente OF tp_conta_corrente (
   CONSTRAINT tb_conta_corrente_pkey PRIMARY KEY(numero_agencia,numero_conta),
