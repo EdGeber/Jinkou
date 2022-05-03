@@ -37,45 +37,55 @@ CREATE TABLE tb_auditor OF tp_auditor(
 
 CREATE OR REPLACE TYPE BODY tp_dependente AS
 
-  MEMBER FUNCTION getParente RETURN varchar AS  
+  MEMBER FUNCTION getparente RETURN VARCHAR AS  
 
-  parente_encontrado BOOLEAN := false;
+  parente_encontrado BOOLEAN := FALSE;
   cpf_atual VARCHAR(100);
-
-  cursor cpfs_ntsDependentes is
-  select cpf, dependentes from tb_relac_dependente_pessoa;
-
+  dependentes tp_nt_dependentes;
+  
+  found INTEGER;
+    
+  CURSOR cpfs_ntsdependentes IS
+  SELECT cpf, dependentes FROM tb_relac_dependente_pessoa;
+  
   BEGIN
-    -- itera sobre cada dependente de cada cliente de tb_cliente
-    for v_reg IN cpfs_ntsDependentes loop
-      for dep in v_reg loop
-        if(self.primeiro_nome = dep.primeiro_nome and
-        self.sobrenomes_centrais = dep.sobrenomes_centrais and
-        self.ultimo_nome = dep.ultimo_nome) then
-          parente_encontrado := true;
-          exit;
-        end if;
-      end loop;
-        if(parente_encontrado) 
-            then exit; 
-        end if;
-    end loop;
-    return cpf_atual;
-  end;
-
-  ORDER MEMBER FUNCTION comparaDependente (d tp_dependente) RETURN INTEGER IS
-  proprio_nome_completo varchar2(300) := self.primeiro_nome || self.sobrenomes_centrais || self.ultimo_nome;
-  outro_nome_completo   varchar2(300) :=    d.primeiro_nome ||    d.sobrenomes_centrais ||    d.ultimo_nome;
-  begin
-    if(proprio_nome_completo > outro_nome_completo) then
-        return 1;
-    end if;
-    if(proprio_nome_completo = outro_nome_completo) then
-        return 0;
-    end if;
-    return -1;
-  end;
-end;
+    OPEN cpfs_ntsdependentes;
+    LOOP
+        FETCH cpfs_ntsdependentes INTO cpf_atual,dependentes;
+        
+        SELECT COUNT(*) INTO found FROM TABLE(SELECT relac.dependentes 
+            FROM tb_relac_dependente_pessoa relac WHERE relac.cpf = cpf_atual) D 
+            WHERE SELF.primeiro_nome = D.primeiro_nome AND
+                SELF.sobrenomes_centrais = D.sobrenomes_centrais AND
+                SELF.ultimos_nomes = D.ultimos_nomes;
+                
+        IF(found > 0) THEN
+            parente_encontrado := TRUE;
+            EXIT;
+        END IF;
+        
+        EXIT WHEN cpfs_ntsdependentes%notfound;
+    END LOOP;
+    CLOSE cpfs_ntsdependentes;
+    IF parente_encontrado = FALSE THEN
+        cpf_atual := NULL;
+    END IF;
+    RETURN cpf_atual;
+  END;
+  
+  ORDER MEMBER FUNCTION comparadependente (D tp_dependente) RETURN INTEGER IS
+  proprio_nome_completo VARCHAR2(300) := SELF.primeiro_nome || SELF.sobrenomes_centrais || SELF.ultimos_nomes;
+  outro_nome_completo   VARCHAR2(300) :=    D.primeiro_nome ||    D.sobrenomes_centrais ||    D.ultimos_nomes;
+  BEGIN
+    IF(proprio_nome_completo > outro_nome_completo) THEN
+        RETURN 1;
+    END IF;
+    IF(proprio_nome_completo = outro_nome_completo) THEN
+        RETURN 0;
+    END IF;
+    RETURN -1;
+  END;
+END;
 /
 
 
