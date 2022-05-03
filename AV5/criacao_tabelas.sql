@@ -40,25 +40,25 @@ CREATE OR REPLACE TYPE BODY tp_dependente AS
   MEMBER FUNCTION getParente RETURN varchar AS  
 
   parente_encontrado BOOLEAN := false;
-  cpf_atual varchar(100);
+  cpf_atual VARCHAR(100);
 
   cursor cpfs_ntsDependentes is
   select cpf, dependentes from tb_relac_dependente_pessoa;
 
-  begin
+  BEGIN
     -- itera sobre cada dependente de cada cliente de tb_cliente
-
-    --TODO: consertar cursor (open, fetch, close, etc)
-    for cpf_atual, ntDependentes in cpfs_ntsDependentes loop
-      for dependente in table(ntDependentes) loop
-        if(self.primeiro_nome = dependente.primeiro_nome and
-        self.sobrenomes_centrais = dependente.sobrenomes_centrais and
-        self.ultimo_nome = dependente.ultimo_nome) then
+    for v_reg IN cpfs_ntsDependentes loop
+      for dep in v_reg loop
+        if(self.primeiro_nome = dep.primeiro_nome and
+        self.sobrenomes_centrais = dep.sobrenomes_centrais and
+        self.ultimo_nome = dep.ultimo_nome) then
           parente_encontrado := true;
           exit;
         end if;
       end loop;
-        if(parente_encontrado) then exit end if;
+        if(parente_encontrado) 
+            then exit; 
+        end if;
     end loop;
     return cpf_atual;
   end;
@@ -67,8 +67,12 @@ CREATE OR REPLACE TYPE BODY tp_dependente AS
   proprio_nome_completo varchar2(300) := self.primeiro_nome || self.sobrenomes_centrais || self.ultimo_nome;
   outro_nome_completo   varchar2(300) :=    d.primeiro_nome ||    d.sobrenomes_centrais ||    d.ultimo_nome;
   begin
-    if(proprio_nome_completo > outro_nome_completo) then return 1 end if;
-    if(proprio_nome_completo = outro_nome_completo) then return 0 end if;
+    if(proprio_nome_completo > outro_nome_completo) then
+        return 1;
+    end if;
+    if(proprio_nome_completo = outro_nome_completo) then
+        return 0;
+    end if;
     return -1;
   end;
 end;
