@@ -21,3 +21,18 @@ end;
 -- Teste do getparente
 select d.getParente() from table(select relac.dependentes from tb_relac_dependente_pessoa relac where relac.cpf = '001') d 
     where d.parentesco = 'Pai';
+    
+--Adição de um telefone fora de ordem à tabela de telefones do cliente com cpf 001
+DECLARE
+n tb_cliente.telefones%TYPE;
+i INTEGER;
+BEGIN
+    SELECT c.telefones INTO n FROM tb_cliente c WHERE c.cpf = '001';
+    n.EXTEND;
+    i := n.COUNT;
+    n(i) := tp_telefone(9312345123);
+    UPDATE tb_cliente c SET c.telefones = n WHERE c.cpf = '001';
+END;
+
+--Teste do telefoneToInt usando o ORDER BY
+SELECT c.cpf, t.* FROM tb_cliente c, TABLE(c.telefones) t WHERE c.cpf = '001' ORDER BY t.telefoneToInt();
