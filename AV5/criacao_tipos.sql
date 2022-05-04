@@ -54,8 +54,9 @@ CREATE OR REPLACE TYPE BODY tp_telefone AS
     
     CONSTRUCTOR FUNCTION tp_telefone(DDDtelefone int)
                                    RETURN SELF AS RESULT IS
-        DDD int := (DDDtelefone/POWER(10,9))*POWER(10,9);
-        telefone int := DDDtelefone - DDD;
+        
+        DDD int := floor(DDDtelefone/POWER(10,8));
+        telefone int := DDDtelefone - (DDD*POWER(10,8));
         begin
             self.DDD := DDD;
             self.telefone := telefone;
