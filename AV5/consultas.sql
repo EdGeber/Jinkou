@@ -36,3 +36,15 @@ END;
 
 --Teste do telefoneToInt usando o ORDER BY
 SELECT c.cpf, t.* FROM tb_cliente c, TABLE(c.telefones) t WHERE c.cpf = '001' ORDER BY t.telefoneToInt();
+
+--Estado inicial da tabela tb_instituicao
+SELECT * FROM tb_instituicao;
+--Teste do set_DataAbertura()
+DECLARE
+inst tp_instituicao;
+BEGIN
+SELECT VALUE(i) INTO inst FROM tb_instituicao i WHERE i.cnpj = '00000993788450';
+inst.set_DataAbertura('00000993788450', TO_DATE('17/11/1912', 'DD/MM/YYYY'));
+END;
+--Confirmação de que funcionou
+SELECT * FROM tb_instituicao;
