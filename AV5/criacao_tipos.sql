@@ -16,13 +16,14 @@ CREATE OR REPLACE TYPE tp_instituicao AS OBJECT(
   nome VARCHAR2(100),
   data_abertura DATE,
 
-  FINAL MEMBER PROCEDURE set_DataAbertura (data DATE)
+  FINAL MEMBER PROCEDURE set_DataAbertura (cnpj_in IN VARCHAR2, data IN DATE)
 );
 /
+
 CREATE OR REPLACE TYPE BODY tp_instituicao AS
-    FINAL MEMBER PROCEDURE set_DataAbertura(data DATE) IS
+    FINAL MEMBER PROCEDURE set_DataAbertura(cnpj_in IN VARCHAR2, data IN DATE) IS
     BEGIN
-        data_abertura := data;        
+        UPDATE tb_instituicao i SET i.data_abertura = data WHERE i.cnpj = cnpj_in;
     END;
 END;
 /
@@ -64,7 +65,7 @@ CREATE OR REPLACE TYPE BODY tp_telefone AS
         end;
 
     MAP MEMBER FUNCTION telefoneTOint RETURN INTEGER IS    
-        t int := DDD*POWER(10,9) + telefone;
+        t int := DDD*POWER(10,8) + telefone;
         begin
             return t;
         end;
@@ -96,19 +97,9 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT(
     endereco_complemento varchar(100), 
     data_nasc date, 
     cep tp_cep,
-    telefones tp_array_telefone,
-
-    FINAL MEMBER PROCEDURE set_DataNasc (data DATE)
+    telefones tp_array_telefone
     
 ) NOT FINAL NOT INSTANTIABLE;
-/
-
-CREATE OR REPLACE TYPE BODY tp_pessoa AS
-    FINAL MEMBER PROCEDURE set_DataNasc(data DATE) IS
-    BEGIN
-        data_nasc := data;
-    END;
-END;
 /
 
 CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
