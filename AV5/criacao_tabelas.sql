@@ -14,11 +14,6 @@ CREATE TABLE tb_instituicao OF tp_instituicao (
 );
 /
 
--- CREATE TABLE tb_cep OF tp_cep (
---   cep PRIMARY KEY
--- );
--- /
-
 CREATE TABLE tb_cliente OF tp_cliente(
     cpf PRIMARY KEY,
     primeiro_nome NOT NULL,
@@ -36,9 +31,7 @@ CREATE TABLE tb_auditor OF tp_auditor(
 
 
 CREATE OR REPLACE TYPE BODY tp_dependente AS
-
   MEMBER FUNCTION getparente RETURN VARCHAR AS  
-
   parente_encontrado BOOLEAN := FALSE;
   cpf_atual VARCHAR(100);
   dependentes tp_nt_dependentes;
@@ -88,8 +81,6 @@ CREATE OR REPLACE TYPE BODY tp_dependente AS
 END;
 /
 
-
-
 CREATE TABLE tb_conta_corrente OF tp_conta_corrente (
   CONSTRAINT tb_conta_corrente_pkey PRIMARY KEY(numero_agencia,numero_conta),
   CONSTRAINT chk_credito_valido CHECK(credito_disponivel <= limite_credito)
@@ -101,6 +92,7 @@ CREATE TABLE tb_conta_poupanca OF tp_conta_poupanca (
 );
 /
 
+-- WITH ROWID REFERENCES
 CREATE TABLE tb_movimenta OF tp_movimenta (
   conta NOT NULL,
   cliente WITH ROWID REFERENCES tb_cliente NOT NULL
@@ -113,6 +105,7 @@ CREATE TABLE tb_transfere OF tp_transfere(
 );
 /
 
+-- SCOPE IS
 CREATE TABLE tb_investe_em OF tp_investe_em (
   cliente SCOPE IS tb_cliente,
   ativo_financeiro WITH ROWID REFERENCES tb_ativo_financeiro,
