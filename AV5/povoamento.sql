@@ -1,3 +1,4 @@
+-- INSERT INTO
 -- Povoamento Ativo_financeiro
 INSERT INTO tb_ativo_financeiro VALUES (
   tp_ativo_financeiro(
@@ -179,7 +180,6 @@ INSERT INTO tb_relac_dependente_pessoa VALUES(
 );
 /
 
-
 -- Povoamento: Cliente
 INSERT INTO tb_cliente VALUES (
     tp_cliente(
@@ -350,17 +350,6 @@ INSERT INTO tb_auditor VALUES (
 );
 
 -- Povoamento: Conta Corrente
-/*
-  tp_conta_corrente(numero_agencia, 
-                    numero_conta, 
-                    data_criacao, 
-                    nome_banco, 
-                    saldo_atual,
-                    credito_disponivel,
-                    limite_credito,
-                    taxa,
-                    positivo);
-*/
 INSERT into tb_conta_corrente VALUES(
     tp_conta_corrente(
         '001', 
@@ -414,9 +403,6 @@ INSERT INTO tb_conta_corrente VALUES (
 );
 
 -- Povoamento: Conta Poupanca
-/*
-tp_conta_poupanca(agencia, conta, data, banco, saldo, juros)
-*/
 insert into tb_conta_poupanca values(
   tp_conta_poupanca('854', '837917841', TO_DATE('28/05/2010', 'DD/MM/YYYY'), 'Banco do Brasil',    35.12, 0.24)
 );
@@ -429,16 +415,8 @@ insert into tb_conta_poupanca values(
   tp_conta_poupanca('367', '891756213', TO_DATE('07/02/2012', 'DD/MM/YYYY'), 'Banco Santander', 12111.12, 5.322)
 );
 /
+
 -- Povoamento: Movimenta
-/*
-tp_movimenta(
-  (SELECT ref(conta)
-  from tb_conta_? conta
-  where conta.numero_agencia = '' and conta.numero_conta = ''),
-  (SELECT ref(cliente)
-  from tb_cliente cliente
-  where cliente.cpf = '')
-)*/
 insert into tb_movimenta values(
   tp_movimenta(
     (SELECT ref(conta)
@@ -572,29 +550,6 @@ insert into tb_movimenta values(
 /
 
 -- Povoamento: Transfere
-/*
-    tp_transfere(
-      data,
-      horario,
-      valor,
-      status,
-      motivo,
-      -- conta_orig --
-      (SELECT ref(conta)
-      from tb_conta_? conta -- ? pode ser poupanca ou corrente
-      where conta.numero_agencia = '' 
-      and conta.numero_conta = ''),
-      -- conta_dest --
-      (SELECT ref(conta)
-      from tb_conta_? conta -- ? pode ser poupanca ou corrente
-      where conta.numero_agencia = '' 
-      and conta.numero_conta = ''),
-      -- auditor --
-      (SELECT ref(aud)
-      from tb_auditor
-      where aud.cpf = '')
-                )
-*/
 INSERT INTO tb_transfere VALUES(
     tp_transfere(
         TO_DATE('07/02/2020', 'DD/MM/YYYY'), 
@@ -616,6 +571,7 @@ INSERT INTO tb_transfere VALUES(
         null) 
 );
 /
+
 INSERT INTO tb_transfere VALUES(
     tp_transfere(
         TO_DATE('02/03/2022', 'DD/MM/YYYY'), 
@@ -869,16 +825,8 @@ INSERT INTO tb_transfere VALUES(
         )
 );
 /
+
 -- Povoamento: Investe em
-/* 
-    TO_TIMESTAMP('12:11:40', 'HH24:MI:SS')   
-    cliente REF tp_cliente,
-    ativo_financeiro REF tp_ativo_financeiro,
-    conta_corrente REF tp_conta_corrente,
-    data_inicio DATE,
-    hora_inicio TIMESTAMP,
-    valor_mensal_investido NUMBER(7,2)
- */
 INSERT INTO tb_investe_em VALUES (
   tp_investe_em(
     (SELECT REF(C) FROM tb_cliente C WHERE C.cpf = '462'),
@@ -941,15 +889,6 @@ INSERT INTO tb_investe_em VALUES (
 );
 
 -- POVOAMENTO Oferece Auxilio
-/*
-    tp_oferece_auxilio(
-        (SELECT REF(mov) FROM tb_movimenta m WHERE mov.numero_agencia = '' and mov.numero_conta = ''),
-        (SELECT REF(aux) FROM tb_auxilio aux WHERE aux.cod = 'xxxxx'),
-        (SELECT REF(ins) FROM tb_instituicao ins WHERE ins.cnpj = ''),
-        xx,
-        TO_DATE('','DD/MM/YYYY')
-        
-*/
 INSERT INTO tb_oferece_auxilio VALUES (
     tp_oferece_auxilio(
         (SELECT REF(mov) FROM tb_movimenta mov 
@@ -1038,8 +977,6 @@ INSERT INTO tb_oferece_auxilio VALUES (
     )
 );
 
---insert into Oferece_auxilio(cpf, numero_agencia, numero_conta, cnpj, cod_aux, valor_mensal, data_inicio) values 
---('010', '001', '891756213', '22210292435128', 3, 150.00, TO_DATE('01/01/2010', 'DD/MM/YYYY'));
 INSERT INTO tb_oferece_auxilio VALUES (
     tp_oferece_auxilio(
         (SELECT REF(mov) FROM tb_movimenta mov
