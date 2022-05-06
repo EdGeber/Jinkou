@@ -10,7 +10,7 @@ CREATE OR REPLACE TYPE tp_ativo_financeiro AS OBJECT (
 CREATE OR REPLACE TYPE tp_auxilio AS OBJECT(
     cod_auxilio VARCHAR2(5),
     nome_auxilio VARCHAR2(100)
-) 
+); 
 /
 
 -- FINAL MEMBER
