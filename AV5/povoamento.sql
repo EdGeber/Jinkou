@@ -359,7 +359,8 @@ INSERT into tb_conta_corrente VALUES(
         10000.12,
         3948.23, 
         21000.00, 
-        0.8
+        0.8,
+        1
     )
 );
 
@@ -372,7 +373,8 @@ INSERT into tb_conta_corrente VALUES(
         3200.37,
         678.50, 
         2000.00, 
-        0.2
+        0.2,
+        0
     )
 );
 
@@ -385,7 +387,8 @@ INSERT into tb_conta_corrente VALUES(
         2500.00,
         20.00, 
         5000.00, 
-        0.8
+        0.8,
+        1
     )
 );
 
@@ -398,7 +401,8 @@ INSERT INTO tb_conta_corrente VALUES (
     5430.00,
     1500.00, 
     7000.00, 
-    0.6
+    0.6,
+    1
   )
 );
 
