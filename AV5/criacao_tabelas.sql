@@ -14,6 +14,16 @@ CREATE TABLE tb_instituicao OF tp_instituicao (
 );
 /
 
+-- CREATE OR REPLACE TYPE BODY
+-- Type body com procedure que altera a data de abertura de uma instituição
+CREATE OR REPLACE TYPE BODY tp_instituicao AS
+    FINAL MEMBER PROCEDURE set_DataAbertura(cnpj_in IN VARCHAR2, data IN DATE) IS
+    BEGIN
+        UPDATE tb_instituicao i SET i.data_abertura = data WHERE i.cnpj = cnpj_in;
+    END;
+END;
+/
+
 CREATE TABLE tb_cliente OF tp_cliente(
     cpf PRIMARY KEY,
     primeiro_nome NOT NULL,
