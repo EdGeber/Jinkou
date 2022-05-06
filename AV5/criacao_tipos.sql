@@ -183,11 +183,6 @@ CREATE OR REPLACE TYPE tp_conta_corrente UNDER tp_conta(
 );
 /
 
--- ALTER TYPE
--- Retirando o atributo de positivo do tipo conta corrente
-ALTER TYPE tp_conta_corrente DROP ATTRIBUTE (positivo);
-/
-
 -- Type body de tp_conta_corrente com procedure que printa os detalhes de uma conta corrente
 CREATE OR REPLACE TYPE BODY tp_conta_corrente AS
     OVERRIDING MEMBER PROCEDURE exibirDetalhesConta IS
@@ -271,4 +266,22 @@ CREATE OR REPLACE TYPE tp_oferece_auxilio AS OBJECT(
     valor_mensal number(8,2),
     data_inicio DATE
 );
+/
+
+-- ALTER TYPE: 
+-- Adicionando uma member function a tp_oferece_auxilio
+ALTER TYPE tp_oferece_auxilio 
+    -- Retorna o valor anual recebido do auxilio
+    ADD MEMBER FUNCTION valor_anual(SELF tp_oferece_auxilio)
+    RETURN NUMBER CASCADE;
+/
+
+-- Body do tp_oferece_auxilio
+CREATE OR REPLACE TYPE BODY tp_oferece_auxilio AS
+    MEMBER FUNCTION valor_anual(SELF tp_oferece_auxilio)
+    RETURN NUMBER IS  
+    BEGIN
+        RETURN SELF.valor_mensal * 12;
+    END;
+END;
 /
