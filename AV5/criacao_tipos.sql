@@ -176,14 +176,20 @@ CREATE OR REPLACE TYPE tp_conta_corrente UNDER tp_conta(
 -- Type body de tp_conta_corrente com procedure que printa os detalhes de uma conta corrente
 CREATE OR REPLACE TYPE BODY tp_conta_corrente AS
     OVERRIDING MEMBER PROCEDURE exibirDetalhesConta IS
+        saldo_transformado number;
     BEGIN
+        saldo_transformado := saldo_atual;
+        if (positivo=0) then
+            saldo_transformado := saldo_transformado * -1;
+        end if;
+    
         DBMS_OUTPUT.PUT_LINE('Detalhes da conta');
         DBMS_OUTPUT.PUT_LINE('Tipo da conta: corrente');
         DBMS_OUTPUT.PUT_LINE('Número da agência: ' || numero_agencia);
         DBMS_OUTPUT.PUT_LINE('Número da conta: ' || numero_conta);
         DBMS_OUTPUT.PUT_LINE('Data da criação da conta: ' || TO_CHAR(data_criacao));
         DBMS_OUTPUT.PUT_LINE('Nome do banco: ' || nome_banco);
-        DBMS_OUTPUT.PUT_LINE('Saldo atual: ' || TO_CHAR(saldo_atual));
+        DBMS_OUTPUT.PUT_LINE('Saldo atual: ' || TO_CHAR(saldo_transformado));
         DBMS_OUTPUT.PUT_LINE('Crédito disponível: ' || TO_CHAR(credito_disponivel));
         DBMS_OUTPUT.PUT_LINE('Limite de crédito: ' || TO_CHAR(limite_credito));
         DBMS_OUTPUT.PUT_LINE('Taxa: ' || TO_CHAR(taxa));
