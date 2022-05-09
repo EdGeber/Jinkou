@@ -29,3 +29,22 @@ DECLARE
         END LOOP;
         CLOSE contas_cpf_movimenta;
     END;
+
+-- CONSULTA PARA RETORNAR O NÚMERO TOTAL DE TRANSFERÊNCIAS QUE AS CONTAS DE UM DETERMINADO CLIENTE FIZERAM
+DECLARE
+    CURSOR contas_clientes_movimenta IS SELECT DEREF(m.conta), DEREF(m.cliente) FROM tb_movimenta m WHERE m.cliente.cpf = '001';
+    cnt tp_conta;
+    cli tp_cliente;
+    num_transferencias_cliente NUMBER;
+    total_transf_cliente NUMBER := 0;
+    BEGIN
+        OPEN contas_clientes_movimenta;
+        LOOP
+            FETCH contas_clientes_movimenta INTO cnt, cli;
+            EXIT WHEN contas_clientes_movimenta%NOTFOUND;
+            SELECT COUNT(*) INTO num_transferencias_cliente FROM tb_transfere t WHERE t.conta_orig.numero_agencia = cnt.numero_agencia AND t.conta_orig.numero_conta = cnt.numero_conta;
+            total_transf_cliente := total_transf_cliente + num_transferencias_cliente;
+        END LOOP;
+        CLOSE contas_clientes_movimenta;
+        DBMS_OUTPUT.PUT_LINE('Número de transferências feitas pelo cliente com o cpf 001: '||TO_CHAR(total_transf_cliente));
+    END;
