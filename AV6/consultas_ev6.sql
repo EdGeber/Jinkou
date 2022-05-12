@@ -48,7 +48,7 @@ DECLARE
         CLOSE contas_clientes_movimenta;
         DBMS_OUTPUT.PUT_LINE('Número de transferências feitas pelo cliente com o cpf 001: '||TO_CHAR(total_transf_cliente));
     END;
-    
+
 -- CONSULTA PARA QUE, DADO UM CPF, RETORNAR QUAIS AUXÍLIOS ESSA PESSOA RECEBE, QUAIS INSTITUICOES OFERECEM ESSE AUXÍLIO A ELA, O CPF E O PRIMEIRO_NOME DA PESSOA, O VALOR MENSAL DO AUXÍLIO E A DATA DO INÍCIO DO RECEBIMENTO
 SELECT o.auxilio.nome_auxilio, o.instituicao.nome, o.movimenta.cliente.cpf, o.movimenta.cliente.primeiro_nome, o.valor_mensal, o.data_inicio FROM tb_oferece_auxilio o WHERE o.movimenta.cliente.cpf = '001';
 
@@ -72,3 +72,45 @@ DECLARE
         CLOSE c_contas_mais_depend;
         DBMS_OUTPUT.PUT_LINE('Conta: '||cnt_maior_saldo.numero_agencia||' '||cnt_maior_saldo.numero_conta||' Saldo: '||TO_CHAR(saldo));
     END;    
+
+-- TELEFONES DOS CLIENTES QUE RECEBEM BOLSA FAMÍLIA
+DECLARE  
+    CURSOR cr IS  
+    SELECT DEREF(tb.movimenta.cliente) FROM tb_oferece_auxilio tb  
+    WHERE tb.auxilio.nome_auxilio = 'Bolsa Família'   
+    ORDER BY DEREF(tb.movimenta.cliente).cpf;  
+      
+    cli tp_cliente;  
+    tels tp_array_telefone;  
+    tel int;  
+  
+    i int;  
+    last_cpf VARCHAR(100) := '-1';
+BEGIN  
+    OPEN cr;  
+    LOOP  
+        FETCH cr INTO cli;  
+        
+        -- Rode apenas se o cliente nao apareceu antes (a ordenacao garante que ele sera o anterior)
+        IF last_cpf != cli.cpf THEN
+            last_cpf := cli.cpf;
+        
+            SELECT cli.telefones INTO tels FROM dual;  
+            DBMS_OUTPUT.PUT_LINE('Telefones de ' || cli.primeiro_nome || ' ' ||   
+                cli.sobrenomes_centrais || ' ' || cli.ultimo_nome || ':');  
+                
+            -- Printa cada telefone do cliente
+            FOR i IN 1..tels.COUNT LOOP  
+                tel := tels(i).telefoneToInt();  
+                DBMS_OUTPUT.PUT_LINE(tel); 
+                
+                IF i=tels.count THEN  
+                    EXIT;  
+                END IF;  
+                
+            END LOOP;  
+        END IF;
+        EXIT WHEN cr%NOTFOUND;  
+    END LOOP;  
+    CLOSE cr;  
+END;
