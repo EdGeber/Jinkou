@@ -51,3 +51,24 @@ DECLARE
     
 -- CONSULTA PARA QUE, DADO UM CPF, RETORNAR QUAIS AUXÍLIOS ESSA PESSOA RECEBE, QUAIS INSTITUICOES OFERECEM ESSE AUXÍLIO A ELA, O CPF E O PRIMEIRO_NOME DA PESSOA, O VALOR MENSAL DO AUXÍLIO E A DATA DO INÍCIO DO RECEBIMENTO
 SELECT o.auxilio.nome_auxilio, o.instituicao.nome, o.movimenta.cliente.cpf, o.movimenta.cliente.primeiro_nome, o.valor_mensal, o.data_inicio FROM tb_oferece_auxilio o WHERE o.movimenta.cliente.cpf = '001';
+
+-- CONSULTA PARA DESCOBRIR, DENTRE AS PESSOAS COM 3 OU MAIS DEPENDENTES, QUAL CONTA TEM O MAIOR SALDO E QUAL É ESSE SALDO
+DECLARE
+    CURSOR c_contas_mais_depend IS SELECT DEREF(m.conta) FROM tb_movimenta m WHERE m.cliente.cpf IN (
+        SELECT rdp.cpf FROM tb_relac_dependente_pessoa rdp, TABLE(rdp.dependentes) d GROUP BY rdp.cpf HAVING COUNT(*) >= 3);
+    cnt tp_conta;
+    cnt_maior_saldo tp_conta;
+    saldo NUMBER := 0;
+    BEGIN
+        OPEN c_contas_mais_depend;
+        LOOP
+            FETCH c_contas_mais_depend INTO cnt;
+            EXIT WHEN c_contas_mais_depend%NOTFOUND;
+            IF (cnt.saldo_atual > saldo) THEN
+                saldo := cnt.saldo_atual;
+                cnt_maior_saldo := cnt;
+            END IF;
+        END LOOP;
+        CLOSE c_contas_mais_depend;
+        DBMS_OUTPUT.PUT_LINE('Conta: '||cnt_maior_saldo.numero_agencia||' '||cnt_maior_saldo.numero_conta||' Saldo: '||TO_CHAR(saldo));
+    END;    
