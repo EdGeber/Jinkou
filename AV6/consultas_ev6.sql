@@ -114,3 +114,27 @@ BEGIN
     END LOOP;  
     CLOSE cr;  
 END;
+
+-- SELECT REF
+-- DEPENDENTES DO CLIENTE COM ACONTA POUPANCA DE MAIOR SALDO
+DECLARE
+    max_conta_ref ref tp_conta_poupanca;
+
+    cli tp_cliente;
+    dep_table tp_nt_dependentes;
+    
+    i int;
+BEGIN
+    SELECT ref(t) INTO max_conta_ref FROM tb_conta_poupanca t
+    WHERE saldo_atual IN (SELECT MAX(saldo_atual) FROM TB_CONTA_POUPANCA);
+    
+    select deref(tb.cliente) into cli from tb_movimenta tb where tb.conta = max_conta_ref;
+
+    select tb.dependentes into dep_table 
+    from tb_relac_dependente_pessoa tb where tb.cpf = cli.cpf;
+    
+    for i in 1..dep_table.count loop
+        DBMS_OUTPUT.PUT_LINE(dep_table(i).primeiro_nome || ' ' ||   
+        dep_table(i).sobrenomes_centrais || ' ' || dep_table(i).ultimos_nomes);  
+    end loop;
+END;
