@@ -48,3 +48,6 @@ DECLARE
         CLOSE contas_clientes_movimenta;
         DBMS_OUTPUT.PUT_LINE('Número de transferências feitas pelo cliente com o cpf 001: '||TO_CHAR(total_transf_cliente));
     END;
+    
+-- CONSULTA PARA QUE, DADO UM CPF, RETORNAR QUAIS AUXÍLIOS ESSA PESSOA RECEBE, QUAIS INSTITUICOES OFERECEM ESSE AUXÍLIO A ELA, O CPF E O PRIMEIRO_NOME DA PESSOA, O VALOR MENSAL DO AUXÍLIO E A DATA DO INÍCIO DO RECEBIMENTO
+SELECT o.auxilio.nome_auxilio, o.instituicao.nome, o.movimenta.cliente.cpf, o.movimenta.cliente.primeiro_nome, o.valor_mensal, o.data_inicio FROM tb_oferece_auxilio o WHERE o.movimenta.cliente.cpf = '001';
