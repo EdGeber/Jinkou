@@ -962,7 +962,7 @@ INSERT INTO tb_oferece_auxilio VALUES (
 INSERT INTO tb_oferece_auxilio VALUES (
     tp_oferece_auxilio(
         (SELECT REF(mov) FROM tb_movimenta mov 
-            WHERE mov.cliente.cpf = '001' AND mov.conta.numero_agencia = '129' AND mov.conta.numero_conta = '891756213'),
+            WHERE mov.cliente.cpf = '001' AND mov.conta.numero_agencia = '854' AND mov.conta.numero_conta = '837917841'),
         (SELECT REF(aux) FROM tb_auxilio aux WHERE aux.cod_auxilio = '1'),
         (SELECT REF(ins) FROM tb_instituicao ins WHERE ins.cnpj = '71954503790463'),
         1000.00,
