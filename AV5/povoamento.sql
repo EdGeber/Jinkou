@@ -170,15 +170,6 @@ INSERT INTO tb_relac_dependente_pessoa VALUES(
     NULL
 );
 /
-INSERT INTO tb_relac_dependente_pessoa VALUES(
-    '534',
-    tp_nt_dependentes(
-            tp_dependente('Andra', 'Janes', 'Camilo', 'Filha', to_date('05/11/1992','DD/MM/YYYY')),
-            tp_dependente('Balan', 'Clodoaldo', 'Garcia', 'Irmão', to_date('12/03/1930','DD/MM/YYYY')),
-            tp_dependente('Severino', 'Elioner', 'Cabral', 'Tio', to_date('12/12/1985','DD/MM/YYYY'))
-    )
-);
-/
 
 -- Povoamento: Cliente
 INSERT INTO tb_cliente VALUES (
