@@ -146,3 +146,7 @@ FROM tb_oferece_auxilio c
 WHERE c.valor_anual() IN 
 (Select min(c2.valor_anual()) From tb_oferece_auxilio c2
 WHERE c2.movimenta.cliente.cep.cidade = 'Parnamirim');
+
+-- QUANTIDADE DE ATIVOS FINANCEIROS INVESTIDOS PELO CLIENTE DE CPF 462
+SELECT count(distinct deref(tb.ativo_financeiro).nome)
+FROM tb_investe_em tb WHERE deref(tb.cliente).cpf = '462';
