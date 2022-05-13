@@ -138,3 +138,11 @@ BEGIN
         dep_table(i).sobrenomes_centrais || ' ' || dep_table(i).ultimos_nomes);  
     end loop;
 END;
+
+-- NOME DO CLIENTE MORADOR DE PARNAMIRIM COM MENOR VALOR ANUAL RECEBIDO EM ALGUM AUXÍLIO
+SELECT c.movimenta.cliente.primeiro_nome AS nome,
+c.valor_anual() AS auxilio_anual
+FROM tb_oferece_auxilio c
+WHERE c.valor_anual() IN 
+(Select min(c2.valor_anual()) From tb_oferece_auxilio c2
+WHERE c2.movimenta.cliente.cep.cidade = 'Parnamirim');
