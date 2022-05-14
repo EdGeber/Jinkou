@@ -150,3 +150,6 @@ WHERE c2.movimenta.cliente.cep.cidade = 'Parnamirim');
 -- QUANTIDADE DE ATIVOS FINANCEIROS INVESTIDOS PELO CLIENTE DE CPF 462
 SELECT count(distinct deref(tb.ativo_financeiro).nome)
 FROM tb_investe_em tb WHERE deref(tb.cliente).cpf = '462';
+
+-- CONSULTA PRIMÁRIA tb_cliente
+SELECT cli.cpf, cli.primeiro_nome, cli.sobrenomes_centrais, cli.ultimo_nome, cli.endereco_numero, cli.endereco_complemento, cli.data_nasc, cli.cep.cep, t.telefone FROM tb_cliente cli, TABLE(cli.telefones) t;
